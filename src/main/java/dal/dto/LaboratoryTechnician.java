@@ -1,35 +1,62 @@
 package dal.dto;
 
-public interface LaboratoryTechnician extends IUser{
+import java.util.List;
+
+public class LaboratoryTechnician extends User implements ILaboratoryTechnician  {
 
 
-    public int getPb_ID();
-    public void setPb_ID();
+    private int Pb_ID;
+    private int Re_ID;
+    private int Quantity;
+
+
+    @Override
+    public int getPb_ID() {
+        return Pb_ID;
+    }
+
+    @Override
+    public void setPb_ID() {
+
+    }
+
+    @Override
+    public int getRe_ID() {
+        return Re_ID;
+    }
+
+    @Override
+    public void setRe_ID() {
+
+    }
+
+    @Override
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    @Override
+    public void setQuantity_ID() {
+
+    }
+
+    @Override
+    public void getIngredients() {
+
+    }
+
+    @Override
+    public void getProductBatch(int pb_ID) {
+
+    }
     
+    @Override
+    public void updateBatch(int actualAmount, int c_ID) {
 
-    public int getRe_ID();
-    public void setRe_ID();
+    }
 
-    public int getQuantity();
-    public void setQuantity_ID();
+    @Override
+    public void insertIntoCbExtract() {
 
-
-
-
-
-
-    //should retrieve productBatch from DB, and assign private values with get/setters.
-    void getProductBatch(int pb_ID);
-
-    // should retrieve all ingredients and store the information in an ingredient object???????????
-    void getIngredients();
-
-
-    // should remove the actually used amount of a certain ingredient, from its respective commodityBatch;
-    void updateBatch(int actualAmount, int c_ID);
-
-
-    // Inserts information regarding the pBatch, cBatch and c_ID, that has been used.
-    void insertIntoCbExtract();
-
+    }
 }
