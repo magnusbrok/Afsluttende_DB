@@ -2,18 +2,15 @@ package dal.dto;
 
 import java.util.List;
 
-public interface IUserDTO {
-    int getUserId();
+public interface IUser {
 
-    void setUserId(int userId);
+    int getUserID();
+
+    void setUserID(int userID);
 
     String getUserName();
 
     void setUserName(String userName);
-
-    String getIni();
-
-    void setIni(String ini);
 
     List<String> getRoles();
 
