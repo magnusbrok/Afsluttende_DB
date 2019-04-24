@@ -6,7 +6,7 @@ public interface IRecipe {
 
     int getRecepiID();
 
-    void setRecepiID(int recepiID);
+    void setRecepiID(int recipeID);
 
     int getProductID();
 
