@@ -8,7 +8,7 @@ public interface IRecipeDAO {
 
     //Create
     void createRecipe(IRecipe recipe);
-    void createIngredient (IIngredientDTO ingredient);
+    void createIngredient (IIngredient ingredient);
 
     //Reed
     IRecipe getRecipe (int recipeID);
@@ -17,12 +17,12 @@ public interface IRecipeDAO {
 
     List<IRecipe> getRecipeList(int productID);
 
-    List<IRecipe> getIngredientList(IRecipe recipe); // skal det ikke være en liste af ingredienser? -MB
+    List<IIngredient> getIngredientList(IRecipe recipe); // skal det ikke være en liste af ingredienser? -MB, ups, det er rettet nu - Siff
 
     //Update
     void updateRecipe (IRecipe recipe);
 
     //Delete + log recipe
     void deleteRecipe (int recipeID);
-
+        // er ved at undersøge database-design til log-historik - Siff
 }

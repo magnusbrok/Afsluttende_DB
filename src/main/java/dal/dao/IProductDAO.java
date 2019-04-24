@@ -23,7 +23,7 @@ public interface IProductDAO {
     void updateProduct(IProduct product);
     void updatePBatch(IProductBatch productBatch);
 
-    //Delete
+    //Delete - giver det egenligt mening at have disse delete metoder i forhold til logik og database desing? - siff
     void deleteProduct(int productID);
     void deletePBatch(int productBatchID);
 }

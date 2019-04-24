@@ -20,12 +20,12 @@ public interface IRecipe {
 
     void setDeviation(int deviation);
 
-    List<IIngredientDTO> getIngredientList();
+    List<IIngredient> getIngredientList();
 
-    void setIngredientList(List<IIngredientDTO> ingredientList);
+    void setIngredientList(List<IIngredient> ingredientList);
 
-    void addIngredient(IIngredientDTO ingredient);
+    void addIngredient(IIngredient ingredient);
 
-    void removeIngredient(IIngredientDTO ingredient);
+    void removeIngredient(IIngredient ingredient);
 
 }
