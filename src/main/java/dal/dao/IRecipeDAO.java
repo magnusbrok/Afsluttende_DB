@@ -12,14 +12,17 @@ public interface IRecipeDAO {
 
     //Reed
     IRecipe getRecipe (int recipeID);
+
     List<IRecipe> getRecipeList();
+
     List<IRecipe> getRecipeList(int productID);
-    List<IRecipe> getIngredientList(IRecipe recipe);
+
+    List<IRecipe> getIngredientList(IRecipe recipe); // skal det ikke være en liste af ingredienser? -MB
 
     //Update
     void updateRecipe (IRecipe recipe);
 
-    //Delete
+    //Delete + log recipe
     void deleteRecipe (int recipeID);
 
 }
