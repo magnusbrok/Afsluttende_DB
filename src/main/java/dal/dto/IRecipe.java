@@ -17,6 +17,7 @@ public interface IRecipe {
     void setQuantity(int quantity);
 
     int getDeviation();
+
     void setDeviation(int deviation);
 
     List<IIngredientDTO> getIngredientList();

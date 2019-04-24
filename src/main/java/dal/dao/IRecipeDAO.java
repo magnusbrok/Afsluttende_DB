@@ -1,6 +1,6 @@
 package dal.dao;
 
-import dal.dto.IRecipe;
+import dal.dto.*;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface IRecipeDAO {
 
     //Create
     void createRecipe(IRecipe recipe);
-    void createIngredient (IIngredient ingredient);
+    void createIngredient (IIngredientDTO ingredient);
 
     //Reed
     IRecipe getRecipe (int recipeID);
