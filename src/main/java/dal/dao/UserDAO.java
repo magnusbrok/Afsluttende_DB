@@ -31,10 +31,10 @@ public class UserDAO {
         PreparedStatement statement = c.prepareStatement("INSERT INTO User VALUES (?, ?)");
         statement.setInt(1,user.getUserID());
         statement.setString(2, user.getUserName());
-        // Role insert
+         // Role insert
         PreparedStatement rolestatement = c.prepareStatement("INSERT INTO uRoles VALUES (?, ?)");
         rolestatement.setInt(1, user.getUserID());
-        rolestatement.setString(2, String.valueOf(user.getRoles()));
+        rolestatement.setString(2, );
         statement.executeUpdate();
         } catch (SQLException e1) {
             e1.printStackTrace();

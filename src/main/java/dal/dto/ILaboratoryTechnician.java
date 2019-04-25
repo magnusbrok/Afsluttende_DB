@@ -3,15 +3,15 @@ package dal.dto;
 public interface ILaboratoryTechnician extends IUser{
 
 
-    public int getPb_ID();
-    public void setPb_ID();
+    int getPb_ID();
+    void setPb_ID();
 
 
-    public int getRe_ID();
-    public void setRe_ID();
+    int getRe_ID();
+    void setRe_ID();
 
-    public int getQuantity();
-    public void setQuantity_ID();
+    int getQuantity();
+    void setQuantity_ID();
 
 
 
