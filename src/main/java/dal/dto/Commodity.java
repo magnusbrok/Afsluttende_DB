@@ -41,12 +41,12 @@ public class Commodity implements ICommodity {
     @Override
     public boolean isReorder(){
         return reorder;
-    };
+    }
 
     @Override
     public void setReorder(boolean reorder){
         this.reorder =reorder;
-    };
+    }
 
 
 

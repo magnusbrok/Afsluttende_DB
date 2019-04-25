@@ -4,16 +4,16 @@ import java.util.List;
 
 public interface ICommodity {
 
-int getCommodityID();
-void setCommodityID(int CommodityID);
+    int getCommodityID();
+    void setCommodityID(int CommodityID);
 
-String getCommodityName();
-void setCommodityName(String CommodityName);
+    String getCommodityName();
+    void setCommodityName(String CommodityName);
 
-boolean isActive();
-void setActive(boolean active);
+    boolean isActive();
+    void setActive(boolean active);
 
-boolean isReorder();
-void setReorder(boolean reorder);
+    boolean isReorder();
+    void setReorder(boolean reorder);
 
 }
