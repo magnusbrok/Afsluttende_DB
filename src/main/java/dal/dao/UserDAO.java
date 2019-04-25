@@ -1,13 +1,15 @@
 package dal.dao;
 
+import dal.dto.IUser;
 import dal.dto.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
-public class UserDAO {
+public class UserDAO implements IUserDAO{
     private int u_ID;
     private String name;
 
@@ -42,6 +44,12 @@ public class UserDAO {
             e1.printStackTrace();
         }
     }
+
+    @Override
+    public void createUser(IUser user) throws DALException {
+
+    }
+
     public void getUser(int u_ID) throws IUserDAO.DALException {
     try(Connection c = createConnection()){
         PreparedStatement statement = c.prepareStatement("SELECT * FROM User WHERE u_ID = ?");
@@ -49,4 +57,19 @@ public class UserDAO {
         e.printStackTrace();
     }
     }
+
+    @Override
+    public List<IUser> getUserList() throws DALException {
+        return null;
     }
+
+    @Override
+    public void updateUser(IUser user) throws DALException {
+
+    }
+
+    @Override
+    public void deleteUser(int userId) throws DALException {
+
+    }
+}
