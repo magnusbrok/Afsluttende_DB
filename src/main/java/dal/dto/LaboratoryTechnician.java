@@ -17,7 +17,6 @@ public class LaboratoryTechnician extends User implements ILaboratoryTechnician 
 
     @Override
     public void setPb_ID() {
-
     }
 
     @Override
