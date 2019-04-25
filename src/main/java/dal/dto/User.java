@@ -4,18 +4,18 @@ import java.util.List;
 
 public class User implements IUser{
 
-    private int	userId;
+    private int userID;
     private String userName;
     private List<String> roles;
 
     @Override
     public int getUserID() {
-        return userId;
+        return userID;
     }
 
     @Override
     public void setUserID(int userID) {
-        this.userId = userID;
+        this.userID = userID;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class User implements IUser{
 
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", userName=" + userName + " roles=" + roles + "]";
+        return "User [userID=" + userID + ", userName=" + userName + " roles=" + roles + "]";
     }
 
 }
