@@ -2,27 +2,24 @@ package dal.dto;
 
 public interface IProductBatch {
 
-    //ikke færdig, døjer med nogle overvejelser omkring relevante attributter... - siff
-
-    int productBatchID;
-    int productID;
-    int recipeID;
-    int statusID;
-
     int getProductBatchID();
 
     void setProductBatchID(int productBatchID);
 
-    int getProductID();
+    IProduct getProduct();
 
-    void setProductID(int productID);
+    void setProductID(IProduct product);
 
-    int getRecipeID();
+    IRecipe getRecipe();
 
-    void setRecipeID(int recipeID);
+    void setRecipe(IRecipe recipe);
 
-    int getStatusID();
+    String getStatusID();
 
-    void setStatusID(int statusID);
+    void setStatus(String status);
+
+    int getQuiantity();
+
+    void setQuiantity(int quantity);
 
 }
