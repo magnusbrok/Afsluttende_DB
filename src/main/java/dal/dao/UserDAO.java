@@ -144,6 +144,7 @@ public class UserDAO implements IUserDAO{
 
             //Hopefully the resultSet (rs2) below contains the ro_ID generated in the stmt2 execute above. If it does it all at once, this might not work.
             // If the insert above (stmt2) is done first, then SQL will generate a ro_ID which Im using below. If not...?
+            //TODO: Check that I can access the ro_ID down below at this time.
             ResultSet rs = stmt.executeQuery("SELECT ro_ID FROM Roles WHERE name =" + role + ";");
             int roleID = rs.getInt("ro_ID");
             PreparedStatement stmt2 = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
