@@ -2,18 +2,11 @@ package dal.dto;
 
 public class CommodityBatch implements ICommodityBatch {
 
-    Commodity commodity = new Commodity();
-
-
     private int commodityBatchID;
-    private String manufaturer;
+    private ICommodity commodity;
+    private String manufacturer;
     private int stock;
 
-
-    @Override
-    public int getCommodityID() {
-        return commodity.getCommodityID();
-    }
 
     @Override
     public int getCommodityBatchID() {
@@ -25,15 +18,24 @@ public class CommodityBatch implements ICommodityBatch {
         this.commodityBatchID = commodityBatchID;
     }
 
+    @Override
+    public ICommodity getCommodity() {
+        return commodity;
+    }
+
+    @Override
+    public void setCommodity(ICommodity commodity) {
+        this.commodity = commodity;
+    }
 
     @Override
     public String getManufacturer() {
-        return manufaturer;
+        return manufacturer;
     }
 
     @Override
     public void setManufacturer(String manufacturer) {
-        this.manufaturer = manufacturer;
+        this.manufacturer = manufacturer;
     }
 
     @Override

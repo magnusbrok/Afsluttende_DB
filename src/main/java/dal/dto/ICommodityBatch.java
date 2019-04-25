@@ -9,7 +9,8 @@ public interface ICommodityBatch {
     int getCommodityBatchID();
     void setCommodityBatchID(int commodityBatchID);
 
-    int getCommodityID();
+    ICommodity getCommodity();
+    void setCommodity(ICommodity commodity);
 
     String getManufacturer();
     void setManufacturer(String manufacturer);
