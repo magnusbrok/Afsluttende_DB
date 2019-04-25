@@ -2,12 +2,10 @@ package dal.dto;
 
 public class Commodity implements ICommodity {
 
-
     private int commodityID;
     private String commodityName;
     private boolean active;
     private boolean reorder;
-
 
     @Override
     public int getCommodityID() {
