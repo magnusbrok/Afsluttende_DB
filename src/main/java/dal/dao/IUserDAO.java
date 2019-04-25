@@ -10,7 +10,7 @@ public interface IUserDAO {
     void createUser(IUser user) throws DALException;
 
     //Read
-    IUser getUser(int userId) throws DALException;
+    IUser getUser(int userID) throws DALException;
 
     List<IUser> getUserList() throws DALException;
 
@@ -18,7 +18,7 @@ public interface IUserDAO {
     void updateUser(IUser user) throws DALException;
 
     //Delete
-    void deleteUser(int userId) throws DALException;
+    void deleteUser(int userID) throws DALException;
 
     public class DALException extends Exception {
         //Til Java serialisering...
