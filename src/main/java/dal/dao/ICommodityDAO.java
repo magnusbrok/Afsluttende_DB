@@ -25,7 +25,7 @@ public interface ICommodityDAO {
 
     List<ICommodityBatch> getRemainderList();
 
-    List<IExtract> getExtractList(ICommodityBatch commodityBatch); // kan være extract metoder skal ligge et andet sted? - siff
+    List<IProductBatch> getExtractList(ICommodityBatch commodityBatch); // kan være extract metoder skal ligge et andet sted? - siff
 
     //Update
     void updateCommodity(ICommodity commodity);

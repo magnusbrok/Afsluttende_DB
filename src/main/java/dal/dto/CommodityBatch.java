@@ -1,11 +1,14 @@
 package dal.dto;
 
+import java.util.List;
+
 public class CommodityBatch implements ICommodityBatch {
 
     private int commodityBatchID;
     private ICommodity commodity;
     private String manufacturer;
     private int stock;
+    List<IProductBatch> extractList; //?
 
 
     @Override

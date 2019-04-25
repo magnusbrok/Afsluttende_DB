@@ -19,7 +19,7 @@ public interface IProductDAO {
     List<IProductBatch> getPBatchList(IProduct product);
     List<IProductBatch> getPBatchList(IRecipe recipe);
     List<IProductBatch> getPBatchList(int statusID);
-    List<IExtract> getExtractList(IProductBatch productBatch); // kan være extract metoder skal ligge et andet sted? - siff
+    List<ICommodity> getExtractList(IProductBatch productBatch); // kan være extract metoder skal ligge et andet sted? - siff
 
     //Update
     void updateProduct(IProduct product);
