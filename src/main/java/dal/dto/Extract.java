@@ -3,25 +3,38 @@ package dal.dto;
 public class Extract implements IExtract{
 
 
-    ProductBatch pb = new ProductBatch();
-    CommodityBatch cb = new CommodityBatch();
-    Commodity commodity = new Commodity();
-
+    IProductBatch productBatch;
+    ICommodityBatch commodityBatch;
+    ICommodity commodity;
 
     @Override
-    public int getCommodityID() {
-        return commodity.getCommodityID();
+    public IProductBatch getProductBatch() {
+        return productBatch;
     }
 
     @Override
-    public int getCommodityBatchID() {
-        return cb.getCommodityBatchID();
+    public void setProductBatch(IProductBatch productBatch) {
+        this.productBatch = productBatch;
     }
 
+    @Override
+    public ICommodityBatch getCommodityBatch() {
+        return commodityBatch;
+    }
 
     @Override
-    public int getProductBatchID() {
-        return pb.getProductBatchID();
+    public void setCommodityBatch(ICommodityBatch commodityBatch) {
+        this.commodityBatch = commodityBatch;
+    }
+
+    @Override
+    public ICommodity getCommodity() {
+        return commodity;
+    }
+
+    @Override
+    public void setCommodity(ICommodity commodity) {
+        this.commodity = commodity;
     }
 }
 

@@ -2,15 +2,13 @@ package dal.dto;
 
 public interface IExtract {
 
+    IProductBatch getProductBatch();
+    void setProductBatch(IProductBatch productBatch);
 
+    ICommodityBatch getCommodityBatch();
+    void setCommodityBatch(ICommodityBatch commodityBatch);
 
-
-
-
-    int getProductBatchID();
-    int getCommodityID();
-    int getCommodityBatchID();
-
-
+    ICommodity getCommodity();
+    void setCommodity(ICommodity commodity);
 
 }
