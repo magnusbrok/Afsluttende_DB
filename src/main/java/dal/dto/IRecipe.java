@@ -4,21 +4,13 @@ import java.util.List;
 
 public interface IRecipe {
 
-    int getRecepiID();
+    int getRecipeID();
 
-    void setRecepiID(int recipeID);
+    void setRecipeID(int recipeID);
 
-    int getProductID();
+    IProduct getProduct();
 
-    void setProductID(int productID);
-
-    int getQuantity();
-
-    void setQuantity(int quantity);
-
-    int getDeviation();
-
-    void setDeviation(int deviation);
+    void setProduct(IProduct product);
 
     List<IIngredient> getIngredientList();
 
