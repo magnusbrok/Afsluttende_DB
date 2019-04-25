@@ -4,6 +4,8 @@ import java.util.List;
 
 public class ProductBatch implements IProductBatch {
 
+    //TODO implement class
+
     int productBatchID;
     IProduct product;
     IRecipe recipe;

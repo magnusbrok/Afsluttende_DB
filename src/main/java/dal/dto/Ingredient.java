@@ -2,6 +2,8 @@ package dal.dto;
 
 public class Ingredient implements IIngredient {
 
+    //TODO implement class when interface is done
+
     private IRecipe recipe;
     private ICommodity commodity;
     private int quantity;

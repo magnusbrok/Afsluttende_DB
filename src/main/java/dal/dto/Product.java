@@ -2,6 +2,8 @@ package dal.dto;
 
 public class Product implements IProduct {
 
+    //TODO implement class
+
     int productID;
     String productName;
 
