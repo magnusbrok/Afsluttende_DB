@@ -1,5 +1,7 @@
 package dal.dto;
 
+import java.util.List;
+
 public class ProductBatch implements IProductBatch {
 
     int productBatchID;
@@ -7,6 +9,7 @@ public class ProductBatch implements IProductBatch {
     IRecipe recipe;
     String status;
     int quiantity;
+    List<ICommodityBatch> extractList; //?
 
     @Override
     public int getProductBatchID() {
@@ -49,12 +52,12 @@ public class ProductBatch implements IProductBatch {
     }
 
     @Override
-    public int getQuiantity() {
+    public int getQuantity() {
         return 0;
     }
 
     @Override
-    public void setQuiantity(int quantity) {
+    public void setQuantity(int quantity) {
 
     }
 }

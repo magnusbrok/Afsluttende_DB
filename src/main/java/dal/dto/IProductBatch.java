@@ -18,8 +18,8 @@ public interface IProductBatch {
 
     void setStatus(String status);
 
-    int getQuiantity();
+    int getQuantity();
 
-    void setQuiantity(int quantity);
+    void setQuantity(int quantity);
 
 }
