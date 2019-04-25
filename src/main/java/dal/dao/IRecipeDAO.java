@@ -10,7 +10,7 @@ public interface IRecipeDAO {
     void createRecipe(IRecipe recipe);
     void createIngredient (IIngredient ingredient);
 
-    //Reed
+    //Read
     IRecipe getRecipe (int recipeID);
 
     List<IRecipe> getRecipeList();
