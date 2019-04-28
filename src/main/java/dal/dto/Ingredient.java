@@ -2,12 +2,33 @@ package dal.dto;
 
 public class Ingredient implements IIngredient {
 
-    //TODO implement class when interface is done
-
-    private IRecipe recipe;
-    private ICommodity commodity;
+    IRecipe recipe;
+    ICommodity commodity;
     private int quantity;
     private int deviation;
+
+
+    @Override
+    public IRecipe getRecipe() {
+        return recipe;
+    }
+
+    @Override
+    public void setRecipe(IRecipe recipe) {
+        this.recipe = recipe;
+    }
+
+    @Override
+    public ICommodity getCommodity(){return commodity;}
+
+    @Override
+    public void setCommodity(ICommodity commodity) {this.commodity = commodity;}
+
+    @Override
+    public int getQuantity(){return quantity;}
+
+    @Override
+    public void setQuantity(int quantity){this.quantity = quantity;}
 
 
     @Override

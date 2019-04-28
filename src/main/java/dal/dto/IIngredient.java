@@ -2,7 +2,14 @@ package dal.dto;
 
 public interface IIngredient {
 
-    //TODO implement interface
+    IRecipe getRecipe();
+    void setRecipe(IRecipe recipe);
+
+    ICommodity getCommodity();
+    void setCommodity(ICommodity commodity);
+
+    int getQuantity();
+    void setQuantity(int quantity);
 
     int getDeviation();
     void setDeviation(int deviation);

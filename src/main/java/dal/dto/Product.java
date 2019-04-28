@@ -2,28 +2,27 @@ package dal.dto;
 
 public class Product implements IProduct {
 
-    //TODO implement class
 
     int productID;
     String productName;
 
     @Override
     public int getProductID(IProduct product) {
-        return 0;
+        return productID;
     }
 
     @Override
-    public void setProductID(int productID) {
+    public void setProductID(int productID) {this.productID = productID;
 
     }
 
     @Override
     public String getProductName(IProduct product) {
-        return null;
+        return productName;
     }
 
     @Override
-    public void setProductName(String productName) {
+    public void setProductName(String productName) {this.productName = productName;
 
     }
 }

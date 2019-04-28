@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ProductBatch implements IProductBatch {
 
-    //TODO implement class
+    //TODO implement extractlist
 
     int productBatchID;
     IProduct product;
@@ -15,51 +15,51 @@ public class ProductBatch implements IProductBatch {
 
     @Override
     public int getProductBatchID() {
-        return 0;
+        return productBatchID;
     }
 
     @Override
-    public void setProductBatchID(int productBatchID) {
+    public void setProductBatchID(int productBatchID) {this.productBatchID = productBatchID;
 
     }
 
     @Override
     public IProduct getProduct() {
-        return null;
+        return product;
     }
 
     @Override
-    public void setProductID(IProduct product) {
+    public void setProductID(IProduct product) {this.product = product;
 
     }
 
     @Override
     public IRecipe getRecipe() {
-        return null;
+        return recipe;
     }
 
     @Override
-    public void setRecipe(IRecipe recipe) {
+    public void setRecipe(IRecipe recipe) {this.recipe = recipe;
 
     }
 
     @Override
     public String getStatusID() {
-        return null;
+        return status;
     }
 
     @Override
-    public void setStatus(String status) {
+    public void setStatus(String status) {this.status = status;
 
     }
 
     @Override
     public int getQuantity() {
-        return 0;
+        return quiantity;
     }
 
     @Override
-    public void setQuantity(int quantity) {
+    public void setQuantity(int quantity) {this.quiantity = quantity;
 
     }
 }

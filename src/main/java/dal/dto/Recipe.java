@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Recipe implements IRecipe {
 
-    //TODO implement class
+    //TODO implement titel and methods add/remove ingredient
 
     private int recipeID;
     private IProduct product;
@@ -13,33 +13,34 @@ public class Recipe implements IRecipe {
 
     @Override
     public int getRecipeID() {
-        return 0;
+        return recipeID;
     }
 
     @Override
-    public void setRecipeID(int recipeID) {
+    public void setRecipeID(int recipeID) {this.recipeID = recipeID;
 
     }
 
     @Override
     public IProduct getProduct() {
-        return null;
+        return product;
     }
 
     @Override
-    public void setProduct(IProduct product) {
+    public void setProduct(IProduct product) {this.product = product;
 
     }
 
     @Override
     public List<IIngredient> getIngredientList() {
-        return null;
+        return ingredientList;
     }
 
     @Override
-    public void setIngredientList(List<IIngredient> ingredientList) {
+    public void setIngredientList(List<IIngredient> ingredientList) {this.ingredientList = ingredientList;
 
     }
+
 
     @Override
     public void addIngredient(IIngredient ingredient) {
