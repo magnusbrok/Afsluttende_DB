@@ -4,11 +4,13 @@ import java.util.List;
 
 public class CommodityBatch implements ICommodityBatch {
 
+    //TODO implement extractlist?
+
     private int commodityBatchID;
     private ICommodity commodity;
     private String manufacturer;
     private int stock;
-    List<IProductBatch> extractList; //?
+    private List<IProductBatch> extractList; //?
 
 
     @Override

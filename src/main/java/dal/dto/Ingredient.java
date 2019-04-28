@@ -2,8 +2,8 @@ package dal.dto;
 
 public class Ingredient implements IIngredient {
 
-    IRecipe recipe;
-    ICommodity commodity;
+    private IRecipe recipe;
+    private ICommodity commodity;
     private int quantity;
     private int deviation;
 

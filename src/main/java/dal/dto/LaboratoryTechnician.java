@@ -4,7 +4,6 @@ import java.util.List;
 
 public class LaboratoryTechnician extends User implements ILaboratoryTechnician  {
 
-
     private int Pb_ID;
     private int Re_ID;
     private int Quantity;

@@ -27,6 +27,7 @@ public class User implements IUser{
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
     @Override
     public List<String> getRoles() {
         return roles;

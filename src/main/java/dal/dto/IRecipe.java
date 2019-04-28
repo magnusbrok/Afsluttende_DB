@@ -12,6 +12,10 @@ public interface IRecipe {
 
     void setProduct(IProduct product);
 
+    String getTitle();
+
+    void setTitle(String title);
+
     List<IIngredient> getIngredientList();
 
     void setIngredientList(List<IIngredient> ingredientList);

@@ -3,8 +3,8 @@ package dal.dto;
 public class Product implements IProduct {
 
 
-    int productID;
-    String productName;
+    private int productID;
+    private String productName;
 
     @Override
     public int getProductID(IProduct product) {

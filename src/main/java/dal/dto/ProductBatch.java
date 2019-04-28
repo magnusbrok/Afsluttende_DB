@@ -4,14 +4,14 @@ import java.util.List;
 
 public class ProductBatch implements IProductBatch {
 
-    //TODO implement extractlist
+    //TODO implement extractlist?
 
-    int productBatchID;
-    IProduct product;
-    IRecipe recipe;
-    String status;
-    int quiantity;
-    List<ICommodityBatch> extractList; //?
+    private int productBatchID;
+    private IProduct product;
+    private IRecipe recipe;
+    private String status;
+    private int quiantity;
+    private List<ICommodityBatch> extractList; //?
 
     @Override
     public int getProductBatchID() {

@@ -3,9 +3,9 @@ package dal.dto;
 public class Extract implements IExtract{
 
 
-    IProductBatch productBatch;
-    ICommodityBatch commodityBatch;
-    ICommodity commodity;
+    private IProductBatch productBatch;
+    private ICommodityBatch commodityBatch;
+    private ICommodity commodity;
 
     @Override
     public IProductBatch getProductBatch() {
