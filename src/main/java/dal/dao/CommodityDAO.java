@@ -1,12 +1,10 @@
 package dal.dao;
 
-import dal.dto.ICommodity;
-import dal.dto.ICommodityBatch;
-import dal.dto.IProductBatch;
+import com.mysql.cj.protocol.Resultset;
+import dal.dto.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommodityDAO implements ICommodityDAO {
@@ -28,17 +26,61 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public ICommodity getCommodity(int commodityID) throws IUserDAO.DALException {
-        return null;
+        try {
+            Connection con = createConnection();
+            ICommodity commodity = new Commodity();
+            Statement comStatement = con.createStatement();
+            ResultSet commodityRS = comStatement.executeQuery("SELECT * FROM Commodity WHERE c_Id = " + commodityID + ";"); //OBS: Er der problemer med "User" her?
+            if (commodityRS.next()) {
+                commodity.setCommodityID(commodityRS.getInt("c_ID"));
+                commodity.setCommodityName(commodityRS.getString("name"));
+                commodity.setActive(false); //hvad skal der stå i parentesen?
+                commodity.setReorder(false); //hvad skal der stå i parentesen?
+            }
+            return commodity;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+
     }
 
     @Override
     public ICommodityBatch getCBatch(int commodityBatchID) throws IUserDAO.DALException {
+        try {
+            Connection con = createConnection();
+            ICommodityBatch ICom = new CommodityBatch();
+            Statement IComSt = con.createStatement();
+            ResultSet IComRS = IComSt.executeQuery("SELECT * FROM cBatch WHERE cb_ID = " + commodityBatchID + ";");
+        }
+
+        catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
         return null;
     }
 
     @Override
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
-        return null;
+        try{
+            Connection con = createConnection();
+            List<ICommodity> commodityList = new ArrayList<>();
+            Statement comList = con.createStatement();
+            ResultSet ListRS = comList.executeQuery("SELECT * FROM Commodity;");
+
+            while (ListRS.next()) {
+                ICommodity commodity = new Commodity();
+                commodity.setCommodityID(ListRS.getInt("c_ID"));
+                commodity.setCommodityName(ListRS.getString("name"));
+                commodity.setActive(true); //hvad skal der stå i parentesen?
+                commodity.setReorder(true); //hvad skal der stå i parentesen?
+
+
+                commodityList.add(commodity);
+            }
+            return commodityList;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
