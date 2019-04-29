@@ -1,8 +1,7 @@
 package dal.dao;
 
-import dal.dto.IIngredient;
-import dal.dto.IRecipe;
-import dal.dto.Recipe;
+import dal.dto.*;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,20 +16,54 @@ public class RecipeDAO implements IRecipeDAO{
 
     //CREATE
     @Override
-    public void createRecipe(IRecipe recipe) throws IUserDAO.DALException {
-
+    public void createRecipe(IRecipe recipe, IProduct product) throws IUserDAO.DALException {
+        try {
+            Connection con = createConnection();
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, p_ID, title) " +
+                    "VALUES (?, ?, ?);");
+            stmt.setInt(1,recipe.getRecipeID());
+            stmt.setInt(2,product.getProductID(product)); //Had to also take "IProduct product" as argument for method, in order to access product ID. - Tim
+            stmt.setString(3,recipe.getTitle());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
-    public void createIngredient(IIngredient ingredient) throws IUserDAO.DALException {
-
+    public void createIngredient(IIngredient ingredient, IRecipe recipe, ICommodity commodity) throws IUserDAO.DALException {
+        try {
+            Connection con = createConnection();
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO Ingredient (re_ID, c_ID, quantity, deviation) " +
+                    "VALUES (?, ?, ?, ?);");
+            stmt.setInt(1,recipe.getRecipeID());
+            stmt.setInt(2,commodity.getCommodityID());  //Had to take recipe and commodity as parameters aswell. In order to access c_ID and re_ID - Tim
+            stmt.setInt(3,ingredient.getQuantity());
+            stmt.setInt(4,ingredient.getDeviation());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
 
     //READ
     @Override
     public IRecipe getRecipe(int recipeID) throws IUserDAO.DALException {
-        return null;
+        try {
+            Connection con = createConnection();
+            IRecipe recipe = new Recipe();
+            Statement Statement = con.createStatement();
+            ResultSet rs = Statement.executeQuery("SELECT * FROM Recipe WHERE re_ID = " + recipeID + ";");
+            if (rs.next()) {
+                recipe.setRecipeID(rs.getInt("re_ID"));
+                recipe.setProduct(rs.getInt("p_ID"));   //Problem: Vil gerne sette "produktID" og ikke Product objektet...
+                recipe.setTitle(rs.getString("title"));
+            }
+            return recipe;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override

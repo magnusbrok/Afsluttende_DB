@@ -7,8 +7,8 @@ import java.util.List;
 public interface IRecipeDAO {
 
     //Create
-    void createRecipe(IRecipe recipe)  throws IUserDAO.DALException;
-    void createIngredient (IIngredient ingredient)  throws IUserDAO.DALException;
+    void createRecipe(IRecipe recipe, IProduct product)  throws IUserDAO.DALException;
+    void createIngredient (IIngredient ingredient, IRecipe recipe, ICommodity commodity)  throws IUserDAO.DALException;
 
     //Read
     IRecipe getRecipe (int recipeID)  throws IUserDAO.DALException;
