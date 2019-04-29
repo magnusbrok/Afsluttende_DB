@@ -7,7 +7,7 @@ public class Product implements IProduct {
     private String productName;
 
     @Override
-    public int getProductID(IProduct product) {
+    public int getProductID() {
         return productID;
     }
 
@@ -17,7 +17,7 @@ public class Product implements IProduct {
     }
 
     @Override
-    public String getProductName(IProduct product) {
+    public String getProductName() {
         return productName;
     }
 

@@ -22,7 +22,7 @@ public class RecipeDAO implements IRecipeDAO{
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, p_ID, title) " +
                     "VALUES (?, ?, ?);");
             stmt.setInt(1,recipe.getRecipeID());
-            stmt.setInt(2,product.getProductID(product)); //Had to also take "IProduct product" as argument for method, in order to access product ID. - Tim
+            stmt.setInt(2,product.getProductID()); //Had to also take "IProduct product" as argument for method, in order to access product ID. - Tim //corrected - siff
             stmt.setString(3,recipe.getTitle());
             stmt.executeUpdate();
         } catch (SQLException e) {

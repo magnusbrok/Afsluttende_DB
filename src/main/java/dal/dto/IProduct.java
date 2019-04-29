@@ -2,11 +2,11 @@ package dal.dto;
 
 public interface IProduct {
 
-    int getProductID(IProduct product);
+    int getProductID();
 
     void setProductID(int productID);
 
-    String getProductName(IProduct product);
+    String getProductName();
 
     void setProductName(String productName);
 
