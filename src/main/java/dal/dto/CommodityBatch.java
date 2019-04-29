@@ -1,6 +1,6 @@
 package dal.dto;
 
-import java.util.List;
+// import java.util.List;
 
 public class CommodityBatch implements ICommodityBatch {
 
@@ -10,7 +10,7 @@ public class CommodityBatch implements ICommodityBatch {
     private ICommodity commodity;
     private String manufacturer;
     private int stock;
-    private List<IProductBatch> extractList; //?
+   // private List<IProductBatch> extractList; //?
 
 
     @Override
