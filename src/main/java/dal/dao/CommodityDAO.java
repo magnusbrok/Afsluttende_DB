@@ -17,82 +17,82 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public void createCommodity(ICommodity commodity) {
+    public void createCommodity(ICommodity commodity) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void createCBatch(ICommodityBatch commodityBatch) {
+    public void createCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public ICommodity getCommodity(int commodityID) {
+    public ICommodity getCommodity(int commodityID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public ICommodityBatch getCBatch(int commodityBatchID) {
+    public ICommodityBatch getCBatch(int commodityBatchID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodity> getCommodityList() {
+    public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodity> getReorderList() {
+    public List<ICommodity> getReorderList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodityBatch> getCBatchList() {
+    public List<ICommodityBatch> getCBatchList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodityBatch> getCBatchList(ICommodity commodity) {
+    public List<ICommodityBatch> getCBatchList(ICommodity commodity) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodityBatch> getRemainderList() {
+    public List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) {
+    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public void updateCommodity(ICommodity commodity) {
+    public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void updtateCBatch(ICommodityBatch commodityBatchID) {
+    public void updtateCBatch(ICommodityBatch commodityBatchID) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void deleteCommodity(int commodityID) {
+    public void deleteCommodity(int commodityID) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void deleteCBatch(int commodityBatchID) {
+    public void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void checkRemainder(int commodityBatchID) {
+    public void checkRemainder(int commodityBatchID) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void checkReorder(int commodityID) {
+    public void checkReorder(int commodityID) throws IUserDAO.DALException {
 
     }
 }

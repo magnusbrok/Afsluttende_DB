@@ -17,48 +17,48 @@ public class RecipeDAO implements IRecipeDAO{
 
     //CREATE
     @Override
-    public void createRecipe(IRecipe recipe) {
+    public void createRecipe(IRecipe recipe) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void createIngredient(IIngredient ingredient) {
+    public void createIngredient(IIngredient ingredient) throws IUserDAO.DALException {
 
     }
 
 
     //READ
     @Override
-    public IRecipe getRecipe(int recipeID) {
+    public IRecipe getRecipe(int recipeID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeList() {
+    public List<IRecipe> getRecipeList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeList(int productID) {
+    public List<IRecipe> getRecipeList(int productID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IIngredient> getIngredientList(IRecipe recipe) {
+    public List<IIngredient> getIngredientList(IRecipe recipe) throws IUserDAO.DALException {
         return null;
     }
 
 
     //UPDATE
     @Override
-    public void updateRecipe(IRecipe recipe) {
+    public void updateRecipe(IRecipe recipe) throws IUserDAO.DALException {
 
     }
 
 
     //DELETE + log recipe
     @Override
-    public void deleteRecipe(int recipeID) {
+    public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
 
     }
 }

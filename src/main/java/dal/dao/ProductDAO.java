@@ -15,82 +15,82 @@ public class ProductDAO implements IProductDAO {
     }
 
     @Override
-    public void createProduct(IProduct product) {
+    public void createProduct(IProduct product) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void createPBatch(IProductBatch productBatch) {
+    public void createPBatch(IProductBatch productBatch) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void createExtract(IExtract extract) {
+    public void createExtract(IExtract extract) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public IProduct getProduct(int productID) {
+    public IProduct getProduct(int productID)throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public IProductBatch getPBatch(int productBatchID) {
+    public IProductBatch getPBatch(int productBatchID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProduct> getProductList() {
+    public List<IProduct> getProductList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProductBatch> getPBatchList() {
+    public List<IProductBatch> getPBatchList() throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProductBatch> getPBatchList(IProduct product) {
+    public List<IProductBatch> getPBatchList(IProduct product) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProductBatch> getPBatchList(IRecipe recipe) {
+    public List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<IProductBatch> getPBatchList(int statusID) {
+    public List<IProductBatch> getPBatchList(int statusID) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public List<ICommodity> getExtractList(IProductBatch productBatch) {
+    public List<ICommodity> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
         return null;
     }
 
     @Override
-    public void updateProduct(IProduct product) {
+    public void updateProduct(IProduct product) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void updatePBatch(IProductBatch productBatch) {
+    public void updatePBatch(IProductBatch productBatch) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void updateExtract(IExtract extract) {
+    public void updateExtract(IExtract extract) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void deleteProduct(int productID) {
+    public void deleteProduct(int productID) throws IUserDAO.DALException {
 
     }
 
     @Override
-    public void deletePBatch(int productBatchID) {
+    public void deletePBatch(int productBatchID) throws IUserDAO.DALException {
 
     }
 }
