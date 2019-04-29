@@ -8,17 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUserDAO{
-    String dbAdress = "jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/";
-    String dbUser = "s185037";
-    String dbPassWord = "7KZWv1fdgUsV6uSlvhLVb";
-    private Connection createConnection() throws IUserDAO.DALException{
-        try {
 
-            return DriverManager.getConnection(dbAdress + dbUser + "?"
-                    + "user=" + dbUser + "&password="+dbPassWord);
-        } catch (SQLException e)    {
-            throw new IUserDAO.DALException(e.getMessage());
-        }
+//    String dbAdress = "jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/";
+//    String dbUser = "s185037";
+//    String dbPassWord = "7KZWv1fdgUsV6uSlvhLVb";
+//    private Connection createConnection() throws IUserDAO.DALException{
+//        try {
+//
+//            return DriverManager.getConnection(dbAdress + dbUser + "?"
+//                    + "user=" + dbUser + "&password="+dbPassWord);
+//        } catch (SQLException e)    {
+//            throw new IUserDAO.DALException(e.getMessage());
+//        }
+//    }
+
+    private Connection createConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s173998?"
+                + "user=s173998&password=qRibfryD9hC7hNICVopba");
     }
 
     @Override
