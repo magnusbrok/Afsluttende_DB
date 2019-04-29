@@ -4,14 +4,13 @@ import java.util.List;
 
 public class ProductBatch implements IProductBatch {
 
-    //TODO implement extractlist?
 
     private int productBatchID;
     private IProduct product;
     private IRecipe recipe;
     private String status;
-    private int quiantity;
-    private List<ICommodityBatch> extractList; //?
+    private int quantity;
+    private List<ICommodityBatch> extractList;
 
     @Override
     public int getProductBatchID() {
@@ -55,11 +54,17 @@ public class ProductBatch implements IProductBatch {
 
     @Override
     public int getQuantity() {
-        return quiantity;
+        return quantity;
     }
 
     @Override
-    public void setQuantity(int quantity) {this.quiantity = quantity;
+    public void setQuantity(int quantity) {this.quantity = quantity;
 
     }
+
+    @Override
+    public List<ICommodityBatch> getExtractList(){return extractList;}
+
+    @Override
+    public void setExtractList(List<ICommodityBatch> extractList){this.extractList = extractList;}
 }

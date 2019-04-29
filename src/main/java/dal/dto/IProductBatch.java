@@ -1,5 +1,7 @@
 package dal.dto;
 
+import java.util.List;
+
 public interface IProductBatch {
 
     int getProductBatchID();
@@ -21,5 +23,9 @@ public interface IProductBatch {
     int getQuantity();
 
     void setQuantity(int quantity);
+
+    List<ICommodityBatch> getExtractList();
+
+    void setExtractList(List<ICommodityBatch> extractList);
 
 }
