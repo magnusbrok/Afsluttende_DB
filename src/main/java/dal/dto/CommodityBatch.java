@@ -1,6 +1,6 @@
 package dal.dto;
 
-// import java.util.List;
+
 
 public class CommodityBatch implements ICommodityBatch {
 

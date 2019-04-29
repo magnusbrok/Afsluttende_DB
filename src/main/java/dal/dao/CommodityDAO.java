@@ -30,7 +30,7 @@ public class CommodityDAO implements ICommodityDAO {
             Connection con = createConnection();
             ICommodity commodity = new Commodity();
             Statement comStatement = con.createStatement();
-            ResultSet commodityRS = comStatement.executeQuery("SELECT * FROM Commodity WHERE c_Id = " + commodityID + ";"); //OBS: Er der problemer med "User" her?
+            ResultSet commodityRS = comStatement.executeQuery("SELECT * FROM Commodity WHERE c_Id = " + commodityID + ";");
             if (commodityRS.next()) {
                 commodity.setCommodityID(commodityRS.getInt("c_ID"));
                 commodity.setCommodityName(commodityRS.getString("name"));
@@ -90,7 +90,26 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodityBatch> getCBatchList() throws IUserDAO.DALException {
-        return null;
+        try{
+            Connection con = createConnection();
+            List<ICommodityBatch> cBList = new ArrayList<>();
+            Statement cBst = con.createStatement();
+            ResultSet cbRS = cBst.executeQuery("SELECT * FROM cBatch;");
+
+            while (cbRS.next()) {
+                ICommodityBatch commodityBatch = new CommodityBatch();
+                commodityBatch.setCommodityBatchID(cbRS.getInt("c_ID"));
+                // commodityBatch.setCommodity(cbRS.get("name"));
+                // commodityBatch.getManufacturer(cbRS.getString();
+                // commodityBatch.getStock(cbRS.getInt());
+
+
+                cBList.add(commodityBatch);
+            }
+            return cBList;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
