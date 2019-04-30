@@ -165,7 +165,7 @@ public class CommodityDAO implements ICommodityDAO {
     public List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
 
-            PreparedStatement statement = c.prepareStatement("SELECT cb_ID, c_ID, manufacturer, stock, remainder " +
+            PreparedStatement statement = c.prepareStatement("SELECT cb_ID " +
                     "FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE pb_ID = ?");
 
             statement.setInt(1,productBatch.getProductBatchID());
@@ -173,7 +173,7 @@ public class CommodityDAO implements ICommodityDAO {
 
             List<ICommodityBatch> commodityBatchList = new ArrayList<>();
             while (resultSet.next()) {
-                ICommodityBatch commodityBatch = getCommodityBatch(resultSet.getInt("cb_ID"));
+                ICommodityBatch commodityBatch = getCBatch(resultSet.getInt("cb_ID"));
                 commodityBatchList.add(commodityBatch);
             }
 
