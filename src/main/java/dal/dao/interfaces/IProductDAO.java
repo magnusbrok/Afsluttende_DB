@@ -16,10 +16,10 @@ public interface IProductDAO {
 
     List<IProductBatch> getPBatchList() throws IUserDAO.DALException;
     List<IProductBatch> getPBatchList(IProduct productID) throws IUserDAO.DALException;
-
-    List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException;
+//    List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException;
     List<IProductBatch> getPBatchList(int statusID) throws IUserDAO.DALException;
-    List<ICommodity> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
+
+    List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
 
     //Update
     void updateProduct(IProduct product) throws IUserDAO.DALException;

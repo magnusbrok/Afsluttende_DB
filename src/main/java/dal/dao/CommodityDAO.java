@@ -99,6 +99,8 @@ public class CommodityDAO implements ICommodityDAO {
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
         try (Connection con = createConnection();){
             List<ICommodity> commodityList = new ArrayList<>();
+            //Statement comList = con.createStatement();
+            //ResultSet ListRS = comList.executeQuery("SELECT * FROM Commodity;");
             PreparedStatement comList = con.prepareStatement("SELECT * FROM Commodity;");
             ResultSet ListRS = comList.executeQuery();
 
@@ -148,7 +150,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodityBatch> getCBatchList(int commodityID) throws IUserDAO.DALException {
-                return null;
+        return null;
     }
 
     @Override
@@ -157,9 +159,28 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
-        return null;
+    public List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT cb_ID " +
+                    "FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE pb_ID = ?");
+
+            statement.setInt(1,productBatch.getProductBatchID());
+            ResultSet resultSet = statement.executeQuery();
+
+            List<ICommodityBatch> commodityBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                ICommodityBatch commodityBatch = getCBatch(resultSet.getInt("cb_ID"));
+                commodityBatchList.add(commodityBatch);
+            }
+
+            return commodityBatchList;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
+
 
     @Override
     public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
