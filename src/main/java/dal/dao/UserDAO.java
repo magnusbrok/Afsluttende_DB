@@ -48,7 +48,7 @@ public class UserDAO implements IUserDAO {
                 user.addRole(test);
             }
 
-            return user;
+                    return user;
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
@@ -129,11 +129,12 @@ public class UserDAO implements IUserDAO {
             Statement stmt = con.createStatement();
 
             ResultSet rs = stmt.executeQuery("SELECT * FROM uRoles WHERE u_ID =" + userID + ";");
+            // Nuværende kode fjerner ikke Rollerne i roletabellen men kun useren og og relation til rollerne u Uroles.
             while (rs.next()) {
                 Statement deepStatement = con.createStatement();
-                deepStatement.executeUpdate("DELETE FROM Roles WHERE ro_ID = " + rs.getInt("ro_ID") + ";");
+               // deepStatement.executeUpdate("DELETE FROM Roles WHERE ro_ID = " + rs.getInt("ro_ID") + ";");
             }
-
+            stmt.executeUpdate("DELETE FROM uRoles WHERE u_ID =" + userID + ";");
             stmt.executeUpdate("DELETE FROM User WHERE u_ID = " + userID + ";");
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
