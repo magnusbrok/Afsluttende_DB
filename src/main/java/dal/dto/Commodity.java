@@ -1,5 +1,7 @@
 package dal.dto;
 
+import dal.dto.interfaces.ICommodity;
+
 public class Commodity implements ICommodity {
 
     private int commodityID;

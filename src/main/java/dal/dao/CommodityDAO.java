@@ -1,7 +1,11 @@
 package dal.dao;
 
-import com.mysql.cj.protocol.Resultset;
+import dal.dao.interfaces.ICommodityDAO;
+import dal.dao.interfaces.IUserDAO;
 import dal.dto.*;
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.ICommodityBatch;
+import dal.dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.ArrayList;

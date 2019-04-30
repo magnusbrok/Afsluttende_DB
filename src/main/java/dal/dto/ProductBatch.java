@@ -1,5 +1,10 @@
 package dal.dto;
 
+import dal.dto.interfaces.ICommodityBatch;
+import dal.dto.interfaces.IProduct;
+import dal.dto.interfaces.IProductBatch;
+import dal.dto.interfaces.IRecipe;
+
 import java.util.List;
 
 public class ProductBatch implements IProductBatch {

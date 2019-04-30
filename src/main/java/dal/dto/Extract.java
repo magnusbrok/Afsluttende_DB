@@ -1,6 +1,11 @@
 package dal.dto;
 
-public class Extract implements IExtract{
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.ICommodityBatch;
+import dal.dto.interfaces.IExtract;
+import dal.dto.interfaces.IProductBatch;
+
+public class Extract implements IExtract {
 
 
     private IProductBatch productBatch;

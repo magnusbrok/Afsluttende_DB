@@ -1,8 +1,8 @@
 package dal.dto;
 
-import java.util.List;
+import dal.dto.interfaces.ILaboratoryTechnician;
 
-public class LaboratoryTechnician extends User implements ILaboratoryTechnician  {
+public class LaboratoryTechnician extends User implements ILaboratoryTechnician {
 
     private int Pb_ID;
     private int Re_ID;

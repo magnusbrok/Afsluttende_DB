@@ -1,5 +1,9 @@
 package dal.dto;
 
+import dal.dto.interfaces.IIngredient;
+import dal.dto.interfaces.IProduct;
+import dal.dto.interfaces.IRecipe;
+
 import java.util.List;
 
 public class Recipe implements IRecipe {
