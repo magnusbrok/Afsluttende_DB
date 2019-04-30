@@ -22,12 +22,10 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void createCommodity(ICommodity commodity) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
-            ICommodity comm = new Commodity();
-            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity VALUES (?, ?, ?, ?)");
-            create.setInt(1,comm.getCommodityID());
-            create.setString(2, comm.getCommodityName());
-            create.setBoolean(3, comm.isActive());
-            create.setBoolean(4, comm.isReorder());
+            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity (name, active, reorder)VALUES (?, ?, ?)");
+            create.setString(1, commodity.getCommodityName());
+            create.setBoolean(2, commodity.isActive());
+            create.setBoolean(3, commodity.isReorder());
             create.executeUpdate();
 
         } catch (SQLException e) {
@@ -58,9 +56,9 @@ public class CommodityDAO implements ICommodityDAO {
     public ICommodity getCommodity(int commodityID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
             ICommodity commodity = new Commodity();
-            PreparedStatement comStatementP = con.prepareStatement("SELECT * FROM Commodity WHERE c_ID = ? ;");
-            comStatementP.setInt(1, commodityID);
-            ResultSet commodityRS = comStatementP.executeQuery();
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM Commodity WHERE c_ID = ? ;");
+            statement.setInt(1, commodityID);
+            ResultSet commodityRS = statement.executeQuery();
 
             if (commodityRS.next()) {
                 commodity.setCommodityID(commodityRS.getInt("c_ID"));
@@ -99,8 +97,6 @@ public class CommodityDAO implements ICommodityDAO {
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
         try (Connection con = createConnection();){
             List<ICommodity> commodityList = new ArrayList<>();
-            //Statement comList = con.createStatement();
-            //ResultSet ListRS = comList.executeQuery("SELECT * FROM Commodity;");
             PreparedStatement comList = con.prepareStatement("SELECT * FROM Commodity;");
             ResultSet ListRS = comList.executeQuery();
 
