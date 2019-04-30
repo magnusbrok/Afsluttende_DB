@@ -12,6 +12,7 @@ import java.util.List;
 
 public class  ProductDAO implements IProductDAO {
 
+
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s173998?"
                 + "user=s173998&password=qRibfryD9hC7hNICVopba");
@@ -59,6 +60,7 @@ public class  ProductDAO implements IProductDAO {
             ResultSet resultSet = statement.executeQuery();
 
             IProduct product = new Product();
+            resultSet.next();
             product.setProductID(resultSet.getInt("p_ID"));
             product.setProductName(resultSet.getString("name"));
 
@@ -76,9 +78,10 @@ public class  ProductDAO implements IProductDAO {
             PreparedStatement statement = c.prepareStatement("SELECT * FROM pBatch WHERE pb_ID = ?");
             statement.setInt(1,productBatchID);
             ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
 
             IProductBatch productBatch = new ProductBatch();
-            productBatch.setProductID(resultSet.getInt("pb_ID"));
+            productBatch.setProductBatchID(resultSet.getInt("pb_ID"));
             productBatch.setProductID(resultSet.getInt("p_ID"));
             productBatch.setRecipeID(resultSet.getInt("re_ID"));
             productBatch.setQuantity(resultSet.getInt("quantity"));

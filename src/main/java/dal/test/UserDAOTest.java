@@ -32,7 +32,6 @@ public class UserDAOTest {
         assertEquals(testuser.getUserName(), receivedUser.getUserName());
         assertEquals(testuser.getRoles() , receivedUser.getRoles());
         assertEquals(testuser.getRoles().size() , receivedUser.getRoles().size());
-
         userDAO.deleteUser(11);
 
 
