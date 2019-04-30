@@ -12,7 +12,7 @@ public interface ICommodityBatch {
     void setCommodityBatchID(int commodityBatchID);
 
     int getCommodityID();
-    void setCommodity(int commodityID);
+    void setCommodityID(int commodityID);
 
     String getManufacturer();
     void setManufacturer(String manufacturer);
@@ -21,7 +21,7 @@ public interface ICommodityBatch {
     void setStock(int stock);
 
 
-    boolean IsRemainder();
+    boolean isRemainder();
 
     void setRemainder(boolean remainder);
 

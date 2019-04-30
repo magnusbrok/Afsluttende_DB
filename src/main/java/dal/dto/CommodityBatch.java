@@ -29,12 +29,12 @@ public class CommodityBatch implements ICommodityBatch {
 
     @Override
     public int getCommodityID() {
-        return 0;
+        return commodityID;
     }
 
     @Override
-    public void setCommodity(int commodityID) {
-
+    public void setCommodityID(int commodityID) {
+        this.commodityID = commodityID;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CommodityBatch implements ICommodityBatch {
     }
 
     @Override
-    public boolean IsRemainder() {
+    public boolean isRemainder() {
         return remainder;
     }
 
