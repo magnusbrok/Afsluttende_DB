@@ -10,7 +10,7 @@ import java.util.List;
 public interface IRecipeDAO {
 
     //Create
-    void createRecipe(IRecipe recipe, IProduct product)  throws IUserDAO.DALException;
+    void createRecipe(IRecipe recipe, int productID)  throws IUserDAO.DALException;
     void createIngredient (IIngredient ingredient)  throws IUserDAO.DALException;
 
     //Read

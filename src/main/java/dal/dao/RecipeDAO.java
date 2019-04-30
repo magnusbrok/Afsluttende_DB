@@ -3,13 +3,11 @@ package dal.dao;
 import dal.dao.interfaces.IRecipeDAO;
 import dal.dao.interfaces.IUserDAO;
 import dal.dto.*;
-import dal.dto.interfaces.ICommodity;
-import dal.dto.interfaces.IIngredient;
-import dal.dto.interfaces.IProduct;
-import dal.dto.interfaces.IRecipe;
+import dal.dto.interfaces.*;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDAO implements IRecipeDAO {
@@ -21,13 +19,13 @@ public class RecipeDAO implements IRecipeDAO {
 
     //CREATE
     @Override
-    public void createRecipe(IRecipe recipe, IProduct product) throws IUserDAO.DALException {
+    public void createRecipe(IRecipe recipe, int productID) throws IUserDAO.DALException {
         try {
             Connection con = createConnection();
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, p_ID, title) " +
                     "VALUES (?, ?, ?);");
             stmt.setInt(1,recipe.getRecipeID());
-            stmt.setInt(2,product.getProductID()); //Had to also take "IProduct product" as argument for method, in order to access product ID. - Tim //corrected - siff
+            stmt.setInt(2,productID);
             stmt.setString(3,recipe.getTitle());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -37,19 +35,12 @@ public class RecipeDAO implements IRecipeDAO {
 
     @Override
     public void createIngredient(IIngredient ingredient) throws IUserDAO.DALException {
-
-    }
-
-    /**
-
-    @Override
-    public void createIngredient(IIngredient ingredient, IRecipe recipe, ICommodity commodity) throws IUserDAO.DALException {
         try {
             Connection con = createConnection();
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Ingredient (re_ID, c_ID, quantity, deviation) " +
                     "VALUES (?, ?, ?, ?);");
-            stmt.setInt(1,recipe.getRecipeID());
-            stmt.setInt(2,commodity.getCommodityID());  //Had to take recipe and commodity as parameters aswell. In order to access c_ID and re_ID - Tim
+            stmt.setInt(1,ingredient.getRecipeID());
+            stmt.setInt(2,ingredient.getCommodityID());
             stmt.setInt(3,ingredient.getQuantity());
             stmt.setInt(4,ingredient.getDeviation());
             stmt.executeUpdate();
@@ -57,7 +48,6 @@ public class RecipeDAO implements IRecipeDAO {
             throw new IUserDAO.DALException(e.getMessage());
         }
     }
-    **/
 
 
     //READ
@@ -82,9 +72,25 @@ public class RecipeDAO implements IRecipeDAO {
 
     @Override
     public List<IIngredient> getIngredientList(IRecipe recipe) throws IUserDAO.DALException {
-        return null;
-    }
+        try {
+            Connection con = createConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Ingredient WHERE r_ID = " + recipe.getRecipeID() + ";");
+            List<IIngredient> ingredientList = new ArrayList<>();
+            while (rs.next()) {
+                IIngredient ingredient = new Ingredient();
+                ingredient.setRecipeID(recipe.getRecipeID());
+                ingredient.setCommodityID(rs.getInt("c_ID"));
+                ingredient.setQuantity(rs.getInt("quantity"));
+                ingredient.setDeviation(rs.getInt("deviation"));
 
+                ingredientList.add(ingredient);
+            }
+            return ingredientList;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+    }
 
     //UPDATE
     @Override

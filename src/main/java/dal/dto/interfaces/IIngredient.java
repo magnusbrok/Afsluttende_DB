@@ -3,10 +3,10 @@ package dal.dto.interfaces;
 public interface IIngredient {
 
     int getRecipeID();
-    void setRecipe(int recipeID);
+    void setRecipeID(int recipeID);
 
     int getCommodityID();
-    void setCommodity(int commodityID);
+    void setCommodityID(int commodityID);
 
     int getQuantity();
     void setQuantity(int quantity);

@@ -18,7 +18,7 @@ public class Ingredient implements IIngredient {
     }
 
     @Override
-    public void setRecipe(int recipeID) {
+    public void setRecipeID(int recipeID) {
         this.recipeID = recipeID;
 
     }
@@ -29,7 +29,7 @@ public class Ingredient implements IIngredient {
     }
 
     @Override
-    public void setCommodity(int commodityID) {
+    public void setCommodityID(int commodityID) {
         this.commodityID = commodityID;
 
     }
