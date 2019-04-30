@@ -34,14 +34,14 @@ public class UserDAO implements IUserDAO {
             Connection con = createConnection();
             IUser user = new User();
             Statement userStatement = con.createStatement();
-            ResultSet userRS = userStatement.executeQuery("SELECT * FROM User WHERE u_ID = " + userID + ";"); //OBS: Er der problemer med "User" her?
+            ResultSet userRS = userStatement.executeQuery("SELECT * FROM User WHERE u_ID = " + userID + ";");
             if (userRS.next()) {
                 user.setUserID(userRS.getInt("u_ID"));
                 user.setUserName(userRS.getString("name"));
             }
 
             Statement roleStatement = con.createStatement();
-            ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles WHERE u_ID = " + userID + ";");  //OBS: "Name"
+            ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles WHERE u_ID = " + userID + ";");
             while (roleRS.next()) {
                 user.addRole(roleRS.getString("name"));
             }
@@ -57,7 +57,7 @@ public class UserDAO implements IUserDAO {
         try {
             Connection con = createConnection();
             Statement stmt = con.createStatement();
-            ResultSet userRS = stmt.executeQuery("SELECT * FROM User;"); //OBS: Er der problemer med "User" her?
+            ResultSet userRS = stmt.executeQuery("SELECT * FROM User;");
             List<IUser> userList = new ArrayList<>();
             while (userRS.next()) {
                 IUser user = new User();
@@ -65,7 +65,7 @@ public class UserDAO implements IUserDAO {
                 user.setUserName(userRS.getString("name"));
 
                 Statement roleStatement = con.createStatement();
-                ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles " +  //Problem med "name"?
+                ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles " +
                         "WHERE u_ID = " + userRS.getInt("u_ID") + ";");
                 while (roleRS.next()) {
                     user.addRole(roleRS.getString("name"));
@@ -82,7 +82,7 @@ public class UserDAO implements IUserDAO {
     public void createUser(IUser user) throws DALException {
         try {
             Connection con = createConnection();
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO User (u_ID, name) " +    //problem med "User" og "name"?
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO User (u_ID, name) " +
                     "VALUES (?, ?);");
             stmt.setInt(1,user.getUserID());
             stmt.setString(2,user.getUserName());
@@ -100,7 +100,7 @@ public class UserDAO implements IUserDAO {
     public void updateUser(IUser user) throws DALException {
         try {
             Connection con = createConnection();
-            PreparedStatement stmt = con.prepareStatement("UPDATE User SET name = ? WHERE userID = ?"); //Problem med User og name?
+            PreparedStatement stmt = con.prepareStatement("UPDATE User SET name = ? WHERE userID = ?");
             stmt.setString(1,user.getUserName());
             stmt.setInt(2,user.getUserID());
             stmt.executeUpdate();
@@ -132,26 +132,20 @@ public class UserDAO implements IUserDAO {
                 deepStatement.executeUpdate("DELETE FROM Roles WHERE ro_ID = " + rs.getInt("ro_ID") + ";");
             }
 
-            stmt.executeUpdate("DELETE FROM User WHERE u_ID = " + userID + ";");    //OBS: Problem med "User"?
+            stmt.executeUpdate("DELETE FROM User WHERE u_ID = " + userID + ";");
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     private void insertRole(IUser user, String role) throws DALException {
-
         try {
             Connection con = createConnection();
-            //ro_ID needs to be auto-incremented, this means when a value is inserted, SQL will genereate a new unique number as ro_ID.
-            // Furthermore, if "name" in Roles shoud be unique, so you cant keep putting fx "Secretary" in as a role-name with new role ID each time.
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Roles (name) " +
                     "VALUES (?);");
             stmt.setString(1,role);
             stmt.executeUpdate();
 
-            //Hopefully the resultSet (rs2) below contains the ro_ID generated in the stmt2 execute above. If it does it all at once, this might not work.
-            // If the insert above (stmt2) is done first, then SQL will generate a ro_ID which Im using below. If not...?
-            //TODO: Check that I can access the ro_ID down below at this time.
             ResultSet rs = stmt.executeQuery("SELECT ro_ID FROM Roles WHERE name =" + role + ";");
             int roleID = rs.getInt("ro_ID");
             PreparedStatement stmt2 = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
