@@ -11,10 +11,11 @@ public class ProductBatch implements IProductBatch {
 
 
     private int productBatchID;
-    private IProduct product;
-    private IRecipe recipe;
-    private String status;
+    private int productID;
+    private int recipeID;
+    private int statusID;
     private int quantity;
+
     private List<ICommodityBatch> extractList;
 
     @Override
@@ -28,32 +29,33 @@ public class ProductBatch implements IProductBatch {
     }
 
     @Override
-    public IProduct getProduct() {
-        return product;
+    public int getProductID() {
+        return productID;
     }
 
     @Override
-    public void setProductID(IProduct product) {this.product = product;
-
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     @Override
-    public IRecipe getRecipe() {
-        return recipe;
+    public int getRecipeID() {
+        return recipeID;
     }
 
     @Override
-    public void setRecipe(IRecipe recipe) {this.recipe = recipe;
-
+    public void setRecipeID(int recipeID) {
+        this.recipeID = recipeID;
     }
 
     @Override
-    public String getStatusID() {
-        return status;
+    public int getStatusID() {
+        return statusID;
     }
 
     @Override
-    public void setStatus(String status) {this.status = status;
+    public void setStatusID(int statusID) {
+        this.statusID = statusID;
 
     }
 

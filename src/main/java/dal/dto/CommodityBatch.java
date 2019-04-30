@@ -9,9 +9,11 @@ public class CommodityBatch implements ICommodityBatch {
     //TODO implement extractlist?
 
     private int commodityBatchID;
-    private ICommodity commodity;
+    private int commodityID;
     private String manufacturer;
     private int stock;
+    private boolean remainder;
+
    // private List<IProductBatch> extractList; //?
 
 
@@ -26,13 +28,13 @@ public class CommodityBatch implements ICommodityBatch {
     }
 
     @Override
-    public ICommodity getCommodity() {
-        return commodity;
+    public int getCommodityID() {
+        return 0;
     }
 
     @Override
-    public void setCommodity(ICommodity commodity) {
-        this.commodity = commodity;
+    public void setCommodity(int commodityID) {
+
     }
 
     @Override
@@ -53,5 +55,16 @@ public class CommodityBatch implements ICommodityBatch {
     @Override
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    @Override
+    public boolean IsRemainder() {
+        return remainder;
+    }
+
+    @Override
+    public void setRemainder(boolean remainder) {
+        this.remainder = remainder;
+
     }
 }

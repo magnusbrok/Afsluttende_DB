@@ -10,7 +10,7 @@ public class Recipe implements IRecipe {
 
 
     private int recipeID;
-    private IProduct product;
+    private int productID;
     private String title;
     private List<IIngredient> ingredientList;
 
@@ -25,13 +25,13 @@ public class Recipe implements IRecipe {
     }
 
     @Override
-    public IProduct getProduct() {
-        return product;
+    public int getProductID() {
+        return productID;
     }
 
     @Override
-    public void setProduct(IProduct product) {this.product = product;
-
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     @Override

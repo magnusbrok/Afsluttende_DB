@@ -36,6 +36,13 @@ public class RecipeDAO implements IRecipeDAO {
     }
 
     @Override
+    public void createIngredient(IIngredient ingredient) throws IUserDAO.DALException {
+
+    }
+
+    /**
+
+    @Override
     public void createIngredient(IIngredient ingredient, IRecipe recipe, ICommodity commodity) throws IUserDAO.DALException {
         try {
             Connection con = createConnection();
@@ -50,6 +57,7 @@ public class RecipeDAO implements IRecipeDAO {
             throw new IUserDAO.DALException(e.getMessage());
         }
     }
+    **/
 
 
     //READ
@@ -62,7 +70,7 @@ public class RecipeDAO implements IRecipeDAO {
             ResultSet rs = Statement.executeQuery("SELECT * FROM Recipe WHERE re_ID = " + recipeID + ";");
             if (rs.next()) {
                 recipe.setRecipeID(rs.getInt("re_ID"));
-                // recipe.setProduct(rs.getInt("p_ID"));   //Problem: Vil gerne sette "produktID" og ikke Product objektet...
+                recipe.setProductID(rs.getInt("p_ID"));
                 recipe.setTitle(rs.getString("title"));
             }
             return recipe;
@@ -71,15 +79,6 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-    @Override
-    public List<IRecipe> getRecipeList() throws IUserDAO.DALException {
-        return null;
-    }
-
-    @Override
-    public List<IRecipe> getRecipeList(int productID) throws IUserDAO.DALException {
-        return null;
-    }
 
     @Override
     public List<IIngredient> getIngredientList(IRecipe recipe) throws IUserDAO.DALException {
@@ -97,6 +96,11 @@ public class RecipeDAO implements IRecipeDAO {
     //DELETE + log recipe
     @Override
     public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
+
+    }
+
+    @Override
+    public void logRecipe(int recipeID) {
 
     }
 }

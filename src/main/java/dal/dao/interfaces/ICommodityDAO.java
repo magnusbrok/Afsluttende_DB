@@ -23,7 +23,7 @@ public interface ICommodityDAO {
 
     List<ICommodityBatch> getCBatchList() throws IUserDAO.DALException;
 
-    List<ICommodityBatch> getCBatchList(ICommodity commodity) throws IUserDAO.DALException;
+    List<ICommodityBatch> getCBatchList(int commodityID) throws IUserDAO.DALException;
 
     List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException;
 
@@ -31,13 +31,13 @@ public interface ICommodityDAO {
 
     //Update
     void updateCommodity(ICommodity commodity) throws IUserDAO.DALException;
-    void updtateCBatch(ICommodityBatch commodityBatchID) throws IUserDAO.DALException;
+    void updateCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
 
-    //Delete - giver det egenligt mening at have disse delete metoder i forhold til logik og database desing? - siff
+    //Delete skal ikke bruges, men det er nice de er der.
     void deleteCommodity(int commodityID) throws IUserDAO.DALException;
     void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException;
 
-    //Helping Methods - hører måske til under product DTO? - siff
+    //Helping Methods - skal køres efter en update/delete metode
     void checkRemainder(int commodityBatchID) throws IUserDAO.DALException;
     void checkReorder(int commodityID) throws IUserDAO.DALException;
 }

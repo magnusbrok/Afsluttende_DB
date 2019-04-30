@@ -6,27 +6,33 @@ import dal.dto.interfaces.IRecipe;
 
 public class Ingredient implements IIngredient {
 
-    private IRecipe recipe;
-    private ICommodity commodity;
+    private int recipeID;
+    private int commodityID;
     private int quantity;
     private int deviation;
 
 
     @Override
-    public IRecipe getRecipe() {
-        return recipe;
+    public int getRecipeID() {
+        return recipeID;
     }
 
     @Override
-    public void setRecipe(IRecipe recipe) {
-        this.recipe = recipe;
+    public void setRecipe(int recipeID) {
+        this.recipeID = recipeID;
+
     }
 
     @Override
-    public ICommodity getCommodity(){return commodity;}
+    public int getCommodityID() {
+        return commodityID;
+    }
 
     @Override
-    public void setCommodity(ICommodity commodity) {this.commodity = commodity;}
+    public void setCommodity(int commodityID) {
+        this.commodityID = commodityID;
+
+    }
 
     @Override
     public int getQuantity(){return quantity;}

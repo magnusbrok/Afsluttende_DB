@@ -8,17 +8,17 @@ public interface IProductBatch {
 
     void setProductBatchID(int productBatchID);
 
-    IProduct getProduct();
+    int getProductID();
 
-    void setProductID(IProduct product);
+    void setProductID(int productID);
 
-    IRecipe getRecipe();
+    int getRecipeID();
 
-    void setRecipe(IRecipe recipe);
+    void setRecipeID(int recipeID);
 
-    String getStatusID();
+    int getStatusID();
 
-    void setStatus(String status);
+    void setStatusID(int statusID);
 
     int getQuantity();
 

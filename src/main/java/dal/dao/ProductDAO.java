@@ -27,22 +27,12 @@ public class  ProductDAO implements IProductDAO {
     }
 
     @Override
-    public void createExtract(IExtract extract) throws IUserDAO.DALException {
-
-    }
-
-    @Override
     public IProduct getProduct(int productID)throws IUserDAO.DALException {
         return null;
     }
 
     @Override
     public IProductBatch getPBatch(int productBatchID) throws IUserDAO.DALException {
-        return null;
-    }
-
-    @Override
-    public List<IProduct> getProductList() throws IUserDAO.DALException {
         return null;
     }
 
@@ -78,11 +68,6 @@ public class  ProductDAO implements IProductDAO {
 
     @Override
     public void updatePBatch(IProductBatch productBatch) throws IUserDAO.DALException {
-
-    }
-
-    @Override
-    public void updateExtract(IExtract extract) throws IUserDAO.DALException {
 
     }
 

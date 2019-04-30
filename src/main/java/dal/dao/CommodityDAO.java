@@ -117,7 +117,7 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public List<ICommodityBatch> getCBatchList(ICommodity commodity) throws IUserDAO.DALException {
+    public List<ICommodityBatch> getCBatchList(int commodityID) throws IUserDAO.DALException {
         return null;
     }
 
@@ -137,7 +137,7 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public void updtateCBatch(ICommodityBatch commodityBatchID) throws IUserDAO.DALException {
+    public void updateCBatch(ICommodityBatch commodityBatchID) throws IUserDAO.DALException {
 
     }
 

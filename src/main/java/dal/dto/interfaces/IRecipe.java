@@ -11,9 +11,9 @@ public interface IRecipe {
 
     void setRecipeID(int recipeID);
 
-    IProduct getProduct();
+    int getProductID();
 
-    void setProduct(IProduct product);
+    void setProductID(int productID);
 
     String getTitle();
 
