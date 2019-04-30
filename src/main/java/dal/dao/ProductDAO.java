@@ -2,11 +2,12 @@ package dal.dao;
 
 import dal.dao.interfaces.IProductDAO;
 import dal.dao.interfaces.IUserDAO;
+import dal.dto.Product;
+import dal.dto.ProductBatch;
 import dal.dto.interfaces.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class  ProductDAO implements IProductDAO {
@@ -18,66 +19,217 @@ public class  ProductDAO implements IProductDAO {
 
     @Override
     public void createProduct(IProduct product) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
 
+            PreparedStatement statement = c.prepareStatement("INSERT INTO Product VALUES (?,?)");
+
+            statement.setInt(1,product.getProductID());
+            statement.setString(2,product.getProductName());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public void createPBatch(IProductBatch productBatch) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
 
+            PreparedStatement statement = c.prepareStatement("INSERT INTO pBatch VALUES (?,?,?,?,?)");
+
+            statement.setInt(1,productBatch.getProductBatchID());
+            statement.setInt(2,productBatch.getProductID());
+            statement.setInt(3,productBatch.getRecipeID());
+            statement.setInt(4,productBatch.getQuantity());
+            statement.setInt(5,productBatch.getStatusID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public IProduct getProduct(int productID)throws IUserDAO.DALException {
-        return null;
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT * FROM Product WHERE p_ID = ?");
+            statement.setInt(1,productID);
+            ResultSet resultSet = statement.executeQuery();
+
+            IProduct product = new Product();
+            product.setProductID(resultSet.getInt("p_ID"));
+            product.setProductName(resultSet.getString("name"));
+
+            return product;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public IProductBatch getPBatch(int productBatchID) throws IUserDAO.DALException {
-        return null;
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT * FROM pBatch WHERE pb_ID = ?");
+            statement.setInt(1,productBatchID);
+            ResultSet resultSet = statement.executeQuery();
+
+            IProductBatch productBatch = new ProductBatch();
+            productBatch.setProductID(resultSet.getInt("pb_ID"));
+            productBatch.setProductID(resultSet.getInt("p_ID"));
+            productBatch.setRecipeID(resultSet.getInt("re_ID"));
+            productBatch.setQuantity(resultSet.getInt("quantity"));
+            productBatch.setStatusID(resultSet.getInt("s_ID"));
+
+            return productBatch;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public List<IProductBatch> getPBatchList() throws IUserDAO.DALException {
-        return null;
+        try (Connection c = createConnection()){
+            Statement statement = c.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT pb_ID FROM pBatch");
+
+            List<IProductBatch> productBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+                productBatchList.add(productBatch);
+            }
+            return productBatchList;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public List<IProductBatch> getPBatchList(IProduct product) throws IUserDAO.DALException {
-        return null;
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE p_ID = ?");
+            statement.setInt(1,product.getProductID());
+            ResultSet resultSet = statement.executeQuery();
+
+            List<IProductBatch> productBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+                productBatchList.add(productBatch);
+            }
+            return productBatchList;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
-    @Override
-    public List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException {
-        return null;
-    }
+//    @Override
+//    public List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException {
+//        try (Connection c = createConnection()){
+//
+//        } catch (SQLException e) {
+//            throw new IUserDAO.DALException(e.getMessage());
+//        }
+//        return null;
+//    }
 
     @Override
     public List<IProductBatch> getPBatchList(int statusID) throws IUserDAO.DALException {
-        return null;
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE s_ID = ?");
+            statement.setInt(1,statusID);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<IProductBatch> productBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+                productBatchList.add(productBatch);
+            }
+
+            return productBatchList;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
-    public List<ICommodity> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
-        return null;
+    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+        try(Connection c = createConnection()){
+            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE cb_ID = ?;");
+
+            statement.setInt(1,commodityBatch.getCommodityBatchID());
+            ResultSet resultSet = statement.executeQuery();
+
+            List<IProductBatch> productBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+                productBatchList.add(productBatch);
+            }
+
+            return productBatchList;
+
+        }catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public void updateProduct(IProduct product) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("UPDATE Product set name = ? WHERE p_ID = ?");
+
+            statement.setString(1,product.getProductName());
+            statement.setInt(2,product.getProductID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
 
     }
 
     @Override
     public void updatePBatch(IProductBatch productBatch) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
 
+            PreparedStatement statement = c.prepareStatement("UPDATE pBatch" +
+                    " set p_ID = ?, re_ID = ?, quantity = ?, s_ID = ? WHERE pb_ID = ?");
+
+            statement.setInt(1,productBatch.getProductID());
+            statement.setInt(2,productBatch.getRecipeID());
+            statement.setInt(3,productBatch.getQuantity());
+            statement.setInt(4,productBatch.getStatusID());
+            statement.setInt(5,productBatch.getProductBatchID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public void deleteProduct(int productID) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
 
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
     public void deletePBatch(int productBatchID) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
 
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 }

@@ -58,15 +58,15 @@ public class CommodityDAO implements ICommodityDAO {
         try {
             Connection con = createConnection();
             ICommodity commodity = new Commodity();
-            //Statement comStatement = con.createStatement();
-            PreparedStatement comStatementP = con.prepareStatement("SELECT * FROM Commodity WHERE c_Id = \" + commodityID + \";");
+            PreparedStatement comStatementP = con.prepareStatement("SELECT * FROM Commodity WHERE c_Id = ? ;");
+            comStatementP.setInt(1, commodityID);
             ResultSet commodityRS = comStatementP.executeQuery();
-            //ResultSet commodityRS = comStatement.executeQuery("SELECT * FROM Commodity WHERE c_Id = " + commodityID + ";");
+
             if (commodityRS.next()) {
                 commodity.setCommodityID(commodityRS.getInt("c_ID"));
                 commodity.setCommodityName(commodityRS.getString("name"));
-                commodity.setActive(false); //hvad skal der stå i parentesen?
-                commodity.setReorder(false); //hvad skal der stå i parentesen?
+                commodity.setActive(commodityRS.getBoolean("active"));
+                commodity.setReorder(commodityRS.getBoolean("reorder"));
             }
             return commodity;
         } catch (SQLException e) {
@@ -80,16 +80,20 @@ public class CommodityDAO implements ICommodityDAO {
         try {
             Connection con = createConnection();
             ICommodityBatch ICom = new CommodityBatch();
-            //Statement IComSt = con.createStatement();
-            //ResultSet IComRS = IComSt.executeQuery("SELECT * FROM cBatch WHERE cb_ID = " + commodityBatchID + ";");
-            PreparedStatement IComST = con.prepareStatement("SELECT * FROM cBatch WHERE cb_ID = \" + commodityBatchID + \";");
+            PreparedStatement IComST = con.prepareStatement("SELECT * FROM cBatch WHERE cb_ID = ?;");
+            IComST.setInt(1, commodityBatchID);
             ResultSet IComRS = IComST.executeQuery();
-        }
 
-        catch (SQLException e) {
+            if (IComRS.next()) {
+                ICom.setCommodityBatchID(IComRS.getInt("c_ID"));
+                ICom.setCommodityID(IComRS.getInt("c_ID"));
+                ICom.setStock(IComRS.getInt("stock"));
+                ICom.setRemainder(IComRS.getBoolean("remainder"));
+            }
+            return ICom;
+        } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }
-        return null;
     }
 
     @Override
@@ -103,13 +107,8 @@ public class CommodityDAO implements ICommodityDAO {
             ResultSet ListRS = comList.executeQuery();
 
             while (ListRS.next()) {
-                ICommodity commodity = new Commodity();
-                commodity.setCommodityID(ListRS.getInt("c_ID"));
-                commodity.setCommodityName(ListRS.getString("name"));
-                commodity.setActive(true); //hvad skal der stå i parentesen?
-                commodity.setReorder(true); //hvad skal der stå i parentesen?
+                commodityList.add(getCommodity(ListRS.getInt("c_Id")));
 
-                commodityList.add(commodity);
             }
             return commodityList;
         } catch (SQLException e) {
@@ -122,12 +121,17 @@ public class CommodityDAO implements ICommodityDAO {
         try {
             Connection con = createConnection();
             List<ICommodity> ReorderList = new ArrayList<>();
-            PreparedStatement reList = con.prepareStatement("SELECT * FROM Commodity WHERE reorder = ");
+            PreparedStatement reList = con.prepareStatement("SELECT * FROM Commodity WHERE reorder = 1");
+            ResultSet resultSet = reList.executeQuery();
+            while (resultSet.next()) {
+                ReorderList.add(getCommodity(resultSet.getInt("c_Id")));
 
+            }
+            return ReorderList;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IUserDAO.DALException(e.getMessage());
         }
-        return null;
+
     }
 
     @Override
@@ -135,20 +139,12 @@ public class CommodityDAO implements ICommodityDAO {
         try{
             Connection con = createConnection();
             List<ICommodityBatch> cBList = new ArrayList<>();
-            //Statement cBst = con.createStatement();
-            //ResultSet cbRS = cBst.executeQuery("SELECT * FROM cBatch;");
             PreparedStatement cBst = con.prepareStatement("SELECT * FROM cBatch;");
             ResultSet cbRS = cBst.executeQuery();
 
             while (cbRS.next()) {
-                ICommodityBatch commodityBatch = new CommodityBatch();
-                commodityBatch.setCommodityBatchID(cbRS.getInt("c_ID"));
-                // commodityBatch.setCommodity(cbRS.get("name"));
-                // commodityBatch.getManufacturer(cbRS.getString();
-                // commodityBatch.getStock(cbRS.getInt());
+                cBList.add(getCBatch(cbRS.getInt("cBatch")));
 
-
-                cBList.add(commodityBatch);
             }
             return cBList;
         } catch (SQLException e) {
@@ -167,9 +163,28 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
-        return null;
+    public List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT cb_ID " +
+                    "FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE pb_ID = ?");
+
+            statement.setInt(1,productBatch.getProductBatchID());
+            ResultSet resultSet = statement.executeQuery();
+
+            List<ICommodityBatch> commodityBatchList = new ArrayList<>();
+            while (resultSet.next()) {
+                ICommodityBatch commodityBatch = getCBatch(resultSet.getInt("cb_ID"));
+                commodityBatchList.add(commodityBatch);
+            }
+
+            return commodityBatchList;
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
+
 
     @Override
     public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
