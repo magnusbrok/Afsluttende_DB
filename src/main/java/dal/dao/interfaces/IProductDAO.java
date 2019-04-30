@@ -1,6 +1,6 @@
-package dal.dao;
+package dal.dao.interfaces;
 
-import dal.dto.*;
+import dal.dto.interfaces.*;
 
 import java.util.List;
 

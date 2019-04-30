@@ -1,4 +1,6 @@
-package dal.dto;
+package dal.dto.interfaces;
+
+import dal.dto.interfaces.ICommodity;
 
 public interface ICommodityBatch {
 

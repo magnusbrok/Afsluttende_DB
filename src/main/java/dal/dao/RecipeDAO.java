@@ -1,13 +1,18 @@
 package dal.dao;
 
+import dal.dao.interfaces.IRecipeDAO;
+import dal.dao.interfaces.IUserDAO;
 import dal.dto.*;
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.IIngredient;
+import dal.dto.interfaces.IProduct;
+import dal.dto.interfaces.IRecipe;
 
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeDAO implements IRecipeDAO{
+public class RecipeDAO implements IRecipeDAO {
 
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s173998?"
@@ -57,7 +62,7 @@ public class RecipeDAO implements IRecipeDAO{
             ResultSet rs = Statement.executeQuery("SELECT * FROM Recipe WHERE re_ID = " + recipeID + ";");
             if (rs.next()) {
                 recipe.setRecipeID(rs.getInt("re_ID"));
-                recipe.setProduct(rs.getInt("p_ID"));   //Problem: Vil gerne sette "produktID" og ikke Product objektet...
+                // recipe.setProduct(rs.getInt("p_ID"));   //Problem: Vil gerne sette "produktID" og ikke Product objektet...
                 recipe.setTitle(rs.getString("title"));
             }
             return recipe;

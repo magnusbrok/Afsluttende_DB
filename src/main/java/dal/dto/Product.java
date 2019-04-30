@@ -1,5 +1,7 @@
 package dal.dto;
 
+import dal.dto.interfaces.IProduct;
+
 public class Product implements IProduct {
 
 

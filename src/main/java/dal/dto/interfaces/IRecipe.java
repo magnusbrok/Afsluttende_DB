@@ -1,4 +1,7 @@
-package dal.dto;
+package dal.dto.interfaces;
+
+import dal.dto.interfaces.IIngredient;
+import dal.dto.interfaces.IProduct;
 
 import java.util.List;
 

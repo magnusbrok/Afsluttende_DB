@@ -1,13 +1,15 @@
 package dal.dao;
 
-import dal.dto.*;
+import dal.dao.interfaces.IProductDAO;
+import dal.dao.interfaces.IUserDAO;
+import dal.dto.interfaces.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductDAO implements IProductDAO {
+public class  ProductDAO implements IProductDAO {
 
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s173998?"

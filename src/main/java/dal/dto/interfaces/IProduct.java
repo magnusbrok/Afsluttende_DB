@@ -1,4 +1,4 @@
-package dal.dto;
+package dal.dto.interfaces;
 
 public interface IProduct {
 

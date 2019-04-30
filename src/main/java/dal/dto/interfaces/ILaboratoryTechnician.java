@@ -1,6 +1,6 @@
-package dal.dto;
+package dal.dto.interfaces;
 
-public interface ILaboratoryTechnician extends IUser{
+public interface ILaboratoryTechnician extends IUser {
 
 
     int getPb_ID();

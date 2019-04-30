@@ -1,13 +1,14 @@
 package dal.dao;
 
-import dal.dto.IUser;
+import dal.dao.interfaces.IUserDAO;
+import dal.dto.interfaces.IUser;
 import dal.dto.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO implements IUserDAO{
+public class UserDAO implements IUserDAO {
 
 //    String dbAdress = "jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/";
 //    String dbUser = "s185037";

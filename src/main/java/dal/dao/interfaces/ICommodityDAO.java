@@ -1,6 +1,8 @@
-package dal.dao;
+package dal.dao.interfaces;
 
-import dal.dto.*;
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.ICommodityBatch;
+import dal.dto.interfaces.IProductBatch;
 
 import java.util.List;
 

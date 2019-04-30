@@ -1,5 +1,9 @@
 package dal.dto;
 
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.IIngredient;
+import dal.dto.interfaces.IRecipe;
+
 public class Ingredient implements IIngredient {
 
     private IRecipe recipe;

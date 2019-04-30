@@ -1,6 +1,9 @@
-package dal.dao;
+package dal.dao.interfaces;
 
-import dal.dto.*;
+import dal.dto.interfaces.ICommodity;
+import dal.dto.interfaces.IIngredient;
+import dal.dto.interfaces.IProduct;
+import dal.dto.interfaces.IRecipe;
 
 import java.util.List;
 
