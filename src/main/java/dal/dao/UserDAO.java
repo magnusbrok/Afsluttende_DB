@@ -43,7 +43,9 @@ public class UserDAO implements IUserDAO {
             Statement roleStatement = con.createStatement();
             ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles WHERE u_ID = " + userID + ";");
             while (roleRS.next()) {
-                user.addRole(roleRS.getString("name"));
+                String test = roleRS.getString("name");
+                //user.addRole(roleRS.getString("name"));
+                user.addRole(test);
             }
 
             return user;
@@ -141,18 +143,20 @@ public class UserDAO implements IUserDAO {
     private void insertRole(IUser user, String role) throws DALException {
         try {
             Connection con = createConnection();
+
+
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Roles (name) " +
                     "VALUES (?);");
             stmt.setString(1,role);
             stmt.executeUpdate();
 
-            ResultSet rs = stmt.executeQuery("SELECT ro_ID FROM Roles WHERE name =" + role + ";");
-            int roleID = rs.getInt("ro_ID");
-            PreparedStatement stmt2 = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
+            ResultSet rs = stmt.executeQuery("SELECT ro_ID FROM Roles WHERE name = '" + role + "';");
+            rs.next();
+            stmt = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
                     "VALUES (?, ?);");
-            stmt2.setInt(1,user.getUserID());
-            stmt2.setInt(2,roleID);
-            stmt2.executeUpdate();
+            stmt.setInt(1,user.getUserID());
+            stmt.setInt(2,rs.getInt("ro_ID"));
+            stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }

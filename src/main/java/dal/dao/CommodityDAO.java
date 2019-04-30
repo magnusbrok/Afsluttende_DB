@@ -122,7 +122,7 @@ public class CommodityDAO implements ICommodityDAO {
         try {
             Connection con = createConnection();
             List<ICommodity> ReorderList = new ArrayList<>();
-            PreparedStatement reList = con.prepareStatement("SELECT * FROM Commodity WHERE reorder = ")
+            PreparedStatement reList = con.prepareStatement("SELECT * FROM Commodity WHERE reorder = ");
 
         } catch (SQLException e) {
             e.printStackTrace();
