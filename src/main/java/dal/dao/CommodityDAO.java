@@ -75,7 +75,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public ICommodityBatch getCBatch(int commodityBatchID) throws IUserDAO.DALException {
-        try (Connection con = createConnection();) {
+        try (Connection con = createConnection()) {
             ICommodityBatch ICom = new CommodityBatch();
             PreparedStatement IComST = con.prepareStatement("SELECT * FROM cBatch WHERE cb_ID = ?;");
             IComST.setInt(1, commodityBatchID);
@@ -95,7 +95,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
-        try (Connection con = createConnection();){
+        try (Connection con = createConnection()){
             List<ICommodity> commodityList = new ArrayList<>();
             PreparedStatement comList = con.prepareStatement("SELECT * FROM Commodity;");
             ResultSet ListRS = comList.executeQuery();
@@ -112,7 +112,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodity> getReorderList() throws IUserDAO.DALException {
-        try (Connection con = createConnection();) {
+        try (Connection con = createConnection()) {
             List<ICommodity> ReorderList = new ArrayList<>();
             PreparedStatement reList = con.prepareStatement("SELECT * FROM Commodity WHERE reorder = 1");
             ResultSet resultSet = reList.executeQuery();
@@ -129,7 +129,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodityBatch> getCBatchList() throws IUserDAO.DALException {
-        try (Connection con = createConnection();){
+        try (Connection con = createConnection()){
             List<ICommodityBatch> cBList = new ArrayList<>();
             PreparedStatement cBst = con.prepareStatement("SELECT * FROM cBatch;");
             ResultSet cbRS = cBst.executeQuery();
@@ -146,12 +146,25 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodityBatch> getCBatchList(int commodityID) throws IUserDAO.DALException {
+
         return null;
     }
 
     @Override
     public List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException {
-        return null;
+        try (Connection con = createConnection()) {
+            List<ICommodityBatch> list = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM cBatch WHERE remainder = 1");
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()) {
+                list.add(getCBatch(resultSet.getInt("cBatch")));
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+
     }
 
     @Override
@@ -180,12 +193,31 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
+        try (Connection con = createConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE Commodity set name = ? WHERE c_ID = ?");
 
+            ps.setString(1,commodity.getCommodityName());
+            ps.setInt(2, commodity.getCommodityID());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
-    public void updateCBatch(ICommodityBatch commodityBatchID) throws IUserDAO.DALException {
+    public void updateCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+        try (Connection con = createConnection()) {
+            PreparedStatement ps = con.prepareStatement("UPDATE cBatch set stock = ?, remainder = ? WHERE cb_ID = ?");
 
+            ps.setInt(1, commodityBatch.getStock());
+            ps.setBoolean(2, commodityBatch.isRemainder());
+            ps.setInt(3, commodityBatch.getCommodityID());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
@@ -200,6 +232,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public void checkRemainder(int commodityBatchID) throws IUserDAO.DALException {
+
 
     }
 
