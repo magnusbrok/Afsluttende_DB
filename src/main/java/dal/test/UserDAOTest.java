@@ -28,7 +28,7 @@ public class UserDAOTest {
 
         try {
         userDAO.createUser(testuser);
-        IUser receivedUser = userDAO.getUser(11);
+        IUser receivedUser = userDAO.getUser(testuser.getUserID());
         assertEquals(testuser.getUserName(), receivedUser.getUserName());
         assertEquals(testuser.getRoles() , receivedUser.getRoles());
         assertEquals(testuser.getRoles().size() , receivedUser.getRoles().size());

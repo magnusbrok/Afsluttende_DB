@@ -22,10 +22,11 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void createCommodity(ICommodity commodity) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
-            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity (name, active, reorder)VALUES (?, ?, ?)");
-            create.setString(1, commodity.getCommodityName());
-            create.setBoolean(2, commodity.isActive());
-            create.setBoolean(3, commodity.isReorder());
+            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity (c_ID, name, active, reorder)VALUES (?, ?, ?, ?)");
+            create.setInt(1, commodity.getCommodityID());
+            create.setString(2, commodity.getCommodityName());
+            create.setBoolean(3, commodity.isActive());
+            create.setBoolean(4, commodity.isReorder());
             create.executeUpdate();
 
         } catch (SQLException e) {
@@ -39,12 +40,14 @@ public class CommodityDAO implements ICommodityDAO {
         try (Connection con = createConnection()){
 
             ICommodityBatch comm = new CommodityBatch();
-            PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (?, ?, ?, ?, ?) ");
+            PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (cb_ID = ?, manufacturer = ?, stock = ?, remainder = ?) ");
+
             create.setInt(1, comm.getCommodityBatchID());
-            create.setInt(2, comm.getCommodityID());
-            create.setString(3, comm.getManufacturer());
-            create.setInt(4, comm.getStock());
-            create.setBoolean(5, comm.isRemainder());
+            //create.setInt(2, comm.getCommodityID());
+            create.setString(2, comm.getManufacturer());
+            create.setInt(3, comm.getStock());
+            create.setBoolean(4, comm.isRemainder());
+            create.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,10 +197,12 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Commodity set name = ? WHERE c_ID = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE Commodity SET name = ?, active = ?, reorder = ? WHERE c_ID = ?");
 
             ps.setString(1,commodity.getCommodityName());
-            ps.setInt(2, commodity.getCommodityID());
+            ps.setBoolean(2, commodity.isActive());
+            ps.setBoolean(3, commodity.isReorder());
+            ps.setInt(4, commodity.getCommodityID());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -222,7 +227,14 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public void deleteCommodity(int commodityID) throws IUserDAO.DALException {
+        try (Connection con = createConnection()) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Commodity WHERE c_ID = ?");
+            ps.setInt(1,commodityID);
+            ps.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
