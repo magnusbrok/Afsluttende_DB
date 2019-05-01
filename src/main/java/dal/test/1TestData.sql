@@ -1,11 +1,11 @@
-INSERT INTO Status VALUES (1, 'TEST-STATUS_Bestilt');
-INSERT INTO Status VALUES (2, 'TEST-STATUS_Under Produktion');
-INSERT INTO Status VALUES (3, 'TEST-STATUS_Færdiggjort');
+INSERT INTO Status VALUES (1, 'Bestilt');
+INSERT INTO Status VALUES (2, 'Under Produktion');
+INSERT INTO Status VALUES (3, 'Færdiggjort');
 
-INSERT INTO Roles VALUES (1,'TEST_Farmaceut');
-INSERT INTO Roles VALUES (2,'TEST_Produktionsleder');
-INSERT INTO Roles VALUES (3,'TEST_Laborant');
-INSERT INTO Roles VALUES (4,'TEST_Administrator');
+INSERT INTO Roles VALUES (1,'Farmaceut');
+INSERT INTO Roles VALUES (2,'Produktionsleder');
+INSERT INTO Roles VALUES (3,'Laborant');
+INSERT INTO Roles VALUES (4,'Administrator');
 
 INSERT INTO Product VALUES (1, 'TEST_P-Piller');
 INSERT INTO Recipe VALUES (1, 'TEST_Opskrift', 1);
