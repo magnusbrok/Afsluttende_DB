@@ -235,6 +235,10 @@ public class  ProductDAO implements IProductDAO {
     @Override
     public void deletePBatch(int productBatchID) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
+            PreparedStatement statement = c.prepareStatement("DELETE FROM pBatch Where pb_ID = ?");
+
+            statement.setInt(1,productBatchID);
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
