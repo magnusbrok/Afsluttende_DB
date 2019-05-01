@@ -7,11 +7,13 @@ import dal.dto.ProductBatch;
 import dal.dto.interfaces.IProduct;
 import dal.dao.interfaces.IProductDAO;
 import dal.dto.interfaces.IProductBatch;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ProductDAOTest {
 
@@ -62,7 +64,7 @@ public class ProductDAOTest {
     @Test
     public void productBatchTest() throws IUserDAO.DALException {
 
-        //Initialisation - skal tilasses testdata i databasen
+        //Initialisation
         IProductBatch testPBatch = new ProductBatch();
         testPBatch.setProductBatchID(364);
         testPBatch.setProductID(1);
@@ -103,12 +105,42 @@ public class ProductDAOTest {
     }
 
 
-
-
-
-
-
-
-
-
+//    @Test
+//    public void getPBatchListTest() {
+//        IProductBatch testPBatch = new ProductBatch();
+//            testPBatch.setProductBatchID(364);
+//            testPBatch.setProductID(1);
+//            testPBatch.setQuantity(500);
+//            testPBatch.setRecipeID(1);
+//            testPBatch.setStatusID(1);
+//
+//        try {
+//            productDAO.createPBatch(testPBatch);
+//            List<IProductBatch> batchList = productDAO.getPBatchList();
+//
+//            for(IProductBatch batch : batchList){
+//                if(batch.getProductBatchID() == 1){
+//                    assertEquals(1,batch.getProductID());
+//                    assertEquals(10500,batch.getQuantity());
+//                    assertEquals(1,batch.getRecipeID());
+//                    assertEquals(2,batch.getStatusID());
+//                }
+//                if(batch.getProductBatchID() == testPBatch.getProductBatchID()){
+//                    assertEquals(testPBatch.getProductID(),batch.getProductID());
+//                    assertEquals(testPBatch.getQuantity(),batch.getQuantity());
+//                    assertEquals(testPBatch.getRecipeID(),batch.getRecipeID());
+//                    assertEquals(testPBatch.getStatusID(),batch.getStatusID());
+//                }else{
+//                    fail();
+//                }
+//            }
+//
+//            productDAO.deletePBatch(testPBatch.getProductBatchID());
+//
+//        } catch (IUserDAO.DALException e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+//
+//    }
 }
