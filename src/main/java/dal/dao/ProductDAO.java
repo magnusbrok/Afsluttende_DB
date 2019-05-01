@@ -222,6 +222,11 @@ public class  ProductDAO implements IProductDAO {
     public void deleteProduct(int productID) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
 
+            PreparedStatement statement = c.prepareStatement("DELETE FROM Product Where p_ID = ?");
+
+            statement.setInt(1,productID);
+            statement.executeUpdate();
+
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }

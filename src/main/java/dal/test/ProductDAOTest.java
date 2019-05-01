@@ -10,6 +10,7 @@ import dal.dto.interfaces.IProductBatch;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ProductDAOTest {
@@ -24,15 +25,28 @@ public class ProductDAOTest {
         testProduct.setProductID(1);
         testProduct.setProductName("Antibiotika");
         try {
+            //TEST of Create and Reed
             productDAO.createProduct(testProduct);
             IProduct recivedProduct = productDAO.getProduct(1);
             assertEquals(testProduct.getProductID(),recivedProduct.getProductID());
             assertEquals(testProduct.getProductName(),recivedProduct.getProductName());
 
+            //Test of Update
             testProduct.setProductName("Panodil");
             productDAO.updateProduct(testProduct);
             recivedProduct = productDAO.getProduct(1);
             assertEquals(testProduct.getProductName(),recivedProduct.getProductName());
+
+            //Test of Delete
+            productDAO.deleteProduct(1);
+            boolean success = false;
+
+            try{
+                productDAO.getProduct(1);
+            }catch (IUserDAO.DALException e){
+                success = true;
+            }
+            assertTrue(success);
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
