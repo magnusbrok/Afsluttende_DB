@@ -24,7 +24,7 @@ public class ProductDAOTest {
 
         //Initialisation
         IProduct testProduct = new Product();
-        testProduct.setProductID(1);
+        testProduct.setProductID(300);
         testProduct.setProductName("Antibiotika");
 
         try {
@@ -41,11 +41,11 @@ public class ProductDAOTest {
             assertEquals(testProduct.getProductName(),recivedProduct.getProductName());
 
             //Test of Delete
-            productDAO.deleteProduct(1);
+            productDAO.deleteProduct(testProduct.getProductID());
             boolean success = false;
 
             try{
-                productDAO.getProduct(1);
+                productDAO.getProduct(testProduct.getProductID());
             }catch (IUserDAO.DALException e){
                 success = true;
             }
@@ -62,13 +62,13 @@ public class ProductDAOTest {
     @Test
     public void productBatchTest() throws IUserDAO.DALException {
 
-        //Initialisation
+        //Initialisation - skal tilasses testdata i databasen
         IProductBatch testPBatch = new ProductBatch();
-        testPBatch.setProductBatchID(6);
-        testPBatch.setProductID(4);
-        testPBatch.setQuantity(100);
-        testPBatch.setRecipeID(88);
-        testPBatch.setStatusID(5);
+        testPBatch.setProductBatchID(364);
+        testPBatch.setProductID(1);
+        testPBatch.setQuantity(500);
+        testPBatch.setRecipeID(1);
+        testPBatch.setStatusID(1);
 
         try {
             //TEST of Create and Reed
