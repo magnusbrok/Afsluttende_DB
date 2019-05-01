@@ -197,6 +197,9 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void updateCommodity(ICommodity commodity) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
+
+            //check reorder?
+
             PreparedStatement ps = con.prepareStatement("UPDATE Commodity SET name = ?, active = ?, reorder = ? WHERE c_ID = ?");
 
             ps.setString(1,commodity.getCommodityName());
@@ -213,6 +216,9 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void updateCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
+
+            //check remainder?
+
             PreparedStatement ps = con.prepareStatement("UPDATE cBatch set stock = ?, remainder = ? WHERE cb_ID = ?");
 
             ps.setInt(1, commodityBatch.getStock());
@@ -242,14 +248,53 @@ public class CommodityDAO implements ICommodityDAO {
 
     }
 
-    @Override
-    public void checkRemainder(int commodityBatchID) throws IUserDAO.DALException {
+    @Override  /*PROBLEM! da ingrediens mængde er angivet for én pille og ikke for en batch mængde...
+    logik -> en opskrift definerer en standart batch størrelse og tilsvarrende ingrediensmængder? */
+    public void checkRemainder(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+        try (Connection con = createConnection()) {
 
+            Statement statement = con.createStatement();
+            ResultSet minQuantity = statement.executeQuery("SELECT MIN(quantity) FROM Ingredient NATURAL LEFT JOIN cBatch" +
+                    "WHERE c_ID = " + commodityBatch.getCommodityID());
 
+            if (commodityBatch.getStock() < minQuantity.getInt(1)){
+                commodityBatch.setRemainder(true);
+            }
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
-    public void checkReorder(int commodityID) throws IUserDAO.DALException {
+    public void checkReorder(ICommodity commodity) throws IUserDAO.DALException {
+        try (Connection con = createConnection()) {
 
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(quantity) " +
+                    "FROM Ingredient NATURAL RIGHT JOIN Commodity WHERE c_ID =" + commodity.getCommodityID());
+
+            int maxQuantity = resultSet.getInt(1);
+            int minRequired = 2;
+
+            resultSet = statement.executeQuery("SELECT stock FROM cBatch " +
+                    "WHERE c_ID = " + commodity.getCommodityID() + " ORDER BY stock DESC");
+
+            int count = 0;
+            while(resultSet.next()){
+                if(resultSet.getInt(1) < maxQuantity){
+                    count++;
+                }
+                if(count == minRequired){
+                    break;
+                }
+            }
+            if(count < minRequired){
+                commodity.setReorder(true);
+            }
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 }
