@@ -71,13 +71,12 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-
     @Override
     public List<IIngredient> getIngredientList(IRecipe recipe) throws IUserDAO.DALException {
         try {
             Connection con = createConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Ingredient WHERE r_ID = " + recipe.getRecipeID() + ";");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Ingredient WHERE re_ID = " + recipe.getRecipeID() + ";");
             List<IIngredient> ingredientList = new ArrayList<>();
             while (rs.next()) {
                 IIngredient ingredient = new Ingredient();
@@ -110,8 +109,20 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
+    //DELETE
+    @Override
+    public void deleteIngredient(int recipeID, int commodityID) throws IUserDAO.DALException {
+        try (Connection con = createConnection()){
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM Ingredient WHERE re_ID = ? AND c_ID = ?");
+            stmt.setInt(1,recipeID);
+            stmt.setInt(2,commodityID);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+    }
 
-    //DELETE + log recipe
+
     @Override
     public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
@@ -123,6 +134,7 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
+    //LOG
     @Override
     public void logRecipe(int recipeID) {
 

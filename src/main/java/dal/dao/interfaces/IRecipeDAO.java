@@ -22,6 +22,8 @@ public interface IRecipeDAO {
     void updateRecipe (IRecipe recipe) throws IUserDAO.DALException;
 
     //Delete + log recipe
+    void deleteIngredient (int recipeID, int commodityID) throws IUserDAO.DALException;
+
     void deleteRecipe (int recipeID) throws IUserDAO.DALException;
         // er ved at undersøge database-design til log-historik - Siff
 
