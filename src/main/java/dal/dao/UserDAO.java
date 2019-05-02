@@ -54,7 +54,7 @@ public class UserDAO implements IUserDAO {
 
     /**
      *
-     * Henter en liste af brugere, skal dog nok udskiftes så den bare henter via getUser metoden? - MB
+     * H
      * @return
      * @throws DALException
      */
@@ -65,16 +65,7 @@ public class UserDAO implements IUserDAO {
             ResultSet userRS = stmt.executeQuery("SELECT * FROM User;");
             List<IUser> userList = new ArrayList<>();
             while (userRS.next()) {
-                IUser user = new User();
-                user.setUserID(userRS.getInt("u_ID"));
-                user.setUserName(userRS.getString("name"));
-
-                Statement roleStatement = con.createStatement();
-                ResultSet roleRS = roleStatement.executeQuery("SELECT name FROM uRoles NATURAL LEFT JOIN Roles " +
-                        "WHERE u_ID = " + userRS.getInt("u_ID") + ";");
-                while (roleRS.next()) {
-                    user.addRole(roleRS.getString("name"));
-                }
+                IUser user = getUser(userRS.getInt("u_ID"));
                 userList.add(user);
             }
             return userList;
@@ -92,11 +83,11 @@ public class UserDAO implements IUserDAO {
             stmt.setString(2,user.getUserName());
             stmt.executeUpdate();
 
-            for (int i : user.getRoleIDs()) {
+            for (int i = 0; i < user.getRoleIDs().size(); i++) {
                 stmt = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
                         "VALUES (?, ?);");
                 stmt.setInt(1, user.getUserID());
-                stmt.setInt(2, i);
+                stmt.setInt(2, user.getRoleIDs().get(i));
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -108,14 +99,20 @@ public class UserDAO implements IUserDAO {
     public void updateUser(IUser user) throws DALException {
         try (Connection con = createConnection()){
 
-            PreparedStatement stmt = con.prepareStatement("UPDATE User SET name = ? WHERE userID = ?");
+            PreparedStatement stmt = con.prepareStatement("UPDATE User SET name = ? WHERE u_ID = ?");
             stmt.setString(1,user.getUserName());
             stmt.setInt(2,user.getUserID());
             stmt.executeUpdate();
 
+            stmt = con.prepareStatement("DELETE FROM uRoles WHERE u_ID = ?");
+            stmt.setInt(1,user.getUserID());
+            stmt.executeUpdate();
+
             for (int i : user.getRoleIDs()) {
-                stmt = con.prepareStatement("UPDATE uRoles SET ro_ID = ? WHERE u_ID = " + user.getUserID() + ";");
-                stmt.setInt(1,i);
+                stmt = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
+                        "VALUES (?, ?);");
+                stmt.setInt(1, user.getUserID());
+                stmt.setInt(2, i);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
