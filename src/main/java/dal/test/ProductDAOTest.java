@@ -90,18 +90,22 @@ public class ProductDAOTest {
             boolean found = false;
             for(IProductBatch productBatch: batchList){
                 if(productBatch.getProductBatchID() == testPBatch.getProductBatchID()){
-                    assertEquals(testPBatch.getProductID(),recivedPBatch.getProductID());
-                    assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
-                    assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
+                    assertEquals(testPBatch.getProductID(),productBatch.getProductID());
+                    assertEquals(testPBatch.getRecipeID(),productBatch.getRecipeID());
+                    assertEquals(testPBatch.getStatusID(),productBatch.getStatusID());
                     found = true;
                 }else if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()){
-                    assertEquals(dbPBatch.getProductID(),recivedPBatch.getProductID());
-                    assertEquals(dbPBatch.getRecipeID(),recivedPBatch.getRecipeID());
-                    assertEquals(dbPBatch.getStatusID(),recivedPBatch.getStatusID());
+                    assertEquals(dbPBatch.getProductID(),productBatch.getProductID());
+                    assertEquals(dbPBatch.getRecipeID(),productBatch.getRecipeID());
+                    assertEquals(dbPBatch.getStatusID(),productBatch.getStatusID());
                     found = true;
+                }else{
+                    found = false;
                 }
             }
-            if()
+            if(found = false){
+                fail();
+            }
 
             //Test of Update
             testPBatch.setRecipeID(2);
