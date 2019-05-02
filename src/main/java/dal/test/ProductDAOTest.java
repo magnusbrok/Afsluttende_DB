@@ -7,11 +7,13 @@ import dal.dto.ProductBatch;
 import dal.dto.interfaces.IProduct;
 import dal.dao.interfaces.IProductDAO;
 import dal.dto.interfaces.IProductBatch;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ProductDAOTest {
 
@@ -24,7 +26,7 @@ public class ProductDAOTest {
 
         //Initialisation
         IProduct testProduct = new Product();
-        testProduct.setProductID(1);
+        testProduct.setProductID(300);
         testProduct.setProductName("Antibiotika");
 
         try {
@@ -41,11 +43,11 @@ public class ProductDAOTest {
             assertEquals(testProduct.getProductName(),recivedProduct.getProductName());
 
             //Test of Delete
-            productDAO.deleteProduct(1);
+            productDAO.deleteProduct(testProduct.getProductID());
             boolean success = false;
 
             try{
-                productDAO.getProduct(1);
+                productDAO.getProduct(testProduct.getProductID());
             }catch (IUserDAO.DALException e){
                 success = true;
             }
@@ -64,11 +66,11 @@ public class ProductDAOTest {
 
         //Initialisation
         IProductBatch testPBatch = new ProductBatch();
-        testPBatch.setProductBatchID(6);
-        testPBatch.setProductID(4);
-        testPBatch.setQuantity(100);
-        testPBatch.setRecipeID(88);
-        testPBatch.setStatusID(5);
+        testPBatch.setProductBatchID(364);
+        testPBatch.setProductID(1);
+        testPBatch.setQuantity(500);
+        testPBatch.setRecipeID(1);
+        testPBatch.setStatusID(1);
 
         try {
             //TEST of Create and Reed
@@ -103,12 +105,42 @@ public class ProductDAOTest {
     }
 
 
-
-
-
-
-
-
-
-
+//    @Test
+//    public void getPBatchListTest() {
+//        IProductBatch testPBatch = new ProductBatch();
+//            testPBatch.setProductBatchID(364);
+//            testPBatch.setProductID(1);
+//            testPBatch.setQuantity(500);
+//            testPBatch.setRecipeID(1);
+//            testPBatch.setStatusID(1);
+//
+//        try {
+//            productDAO.createPBatch(testPBatch);
+//            List<IProductBatch> batchList = productDAO.getPBatchList();
+//
+//            for(IProductBatch batch : batchList){
+//                if(batch.getProductBatchID() == 1){
+//                    assertEquals(1,batch.getProductID());
+//                    assertEquals(10500,batch.getQuantity());
+//                    assertEquals(1,batch.getRecipeID());
+//                    assertEquals(2,batch.getStatusID());
+//                }
+//                if(batch.getProductBatchID() == testPBatch.getProductBatchID()){
+//                    assertEquals(testPBatch.getProductID(),batch.getProductID());
+//                    assertEquals(testPBatch.getQuantity(),batch.getQuantity());
+//                    assertEquals(testPBatch.getRecipeID(),batch.getRecipeID());
+//                    assertEquals(testPBatch.getStatusID(),batch.getStatusID());
+//                }else{
+//                    fail();
+//                }
+//            }
+//
+//            productDAO.deletePBatch(testPBatch.getProductBatchID());
+//
+//        } catch (IUserDAO.DALException e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+//
+//    }
 }

@@ -38,6 +38,6 @@ public interface ICommodityDAO {
     void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException;
 
     //Helping Methods - skal køres efter en update/delete metode
-    void checkRemainder(int commodityBatchID) throws IUserDAO.DALException;
-    void checkReorder(int commodityID) throws IUserDAO.DALException;
+    void checkRemainder(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
+    void checkReorder(ICommodity commodity) throws IUserDAO.DALException;
 }
