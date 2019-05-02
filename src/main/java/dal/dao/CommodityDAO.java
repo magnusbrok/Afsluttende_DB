@@ -40,13 +40,13 @@ public class CommodityDAO implements ICommodityDAO {
         try (Connection con = createConnection()){
 
             ICommodityBatch comm = new CommodityBatch();
-            PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (cb_ID = ?, manufacturer = ?, stock = ?, remainder = ?) ");
+            PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (?, ?, ?, ?, ?) ");
 
             create.setInt(1, comm.getCommodityBatchID());
-            //create.setInt(2, comm.getCommodityID());
-            create.setString(2, comm.getManufacturer());
-            create.setInt(3, comm.getStock());
-            create.setBoolean(4, comm.isRemainder());
+            create.setInt(2, comm.getCommodityID());
+            create.setString(3, comm.getManufacturer());
+            create.setInt(4, comm.getStock());
+            create.setBoolean(5, comm.isRemainder());
             create.executeUpdate();
 
         } catch (SQLException e) {
@@ -58,9 +58,10 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public ICommodity getCommodity(int commodityID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
-            ICommodity commodity = new Commodity();
             PreparedStatement statement = con.prepareStatement("SELECT * FROM Commodity WHERE c_ID = ? ;");
             statement.setInt(1, commodityID);
+
+            ICommodity commodity = new Commodity();
             ResultSet commodityRS = statement.executeQuery();
 
             if (commodityRS.next()) {
@@ -138,7 +139,7 @@ public class CommodityDAO implements ICommodityDAO {
             ResultSet cbRS = cBst.executeQuery();
 
             while (cbRS.next()) {
-                cBList.add(getCBatch(cbRS.getInt("cBatch")));
+                cBList.add(getCBatch(cbRS.getInt("cb_ID")));
 
             }
             return cBList;
@@ -149,8 +150,21 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public List<ICommodityBatch> getCBatchList(int commodityID) throws IUserDAO.DALException {
+        try (Connection con = createConnection()){
+            List<ICommodityBatch> list = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM cBatch WHERE c_ID = ?;");
+            ps.setInt(1, commodityID);
+            ResultSet resultSet = ps.executeQuery();
 
-        return null;
+            while (resultSet.next()) {
+                list.add(getCBatch(resultSet.getInt("cb_ID")));
+
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+
     }
 
     @Override
@@ -217,7 +231,7 @@ public class CommodityDAO implements ICommodityDAO {
 
             ps.setInt(1, commodityBatch.getStock());
             ps.setBoolean(2, commodityBatch.isRemainder());
-            ps.setInt(3, commodityBatch.getCommodityID());
+            ps.setInt(3, commodityBatch.getCommodityBatchID());
             ps.executeUpdate();
 
         } catch (SQLException e) {
