@@ -22,7 +22,7 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void createCommodity(ICommodity commodity) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
-            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity (c_ID, name, active, reorder)VALUES (?, ?, ?, ?)");
+            PreparedStatement create = con.prepareStatement("INSERT INTO Commodity VALUES (?, ?, ?, ?)");
             create.setInt(1, commodity.getCommodityID());
             create.setString(2, commodity.getCommodityName());
             create.setBoolean(3, commodity.isActive());
@@ -39,14 +39,14 @@ public class CommodityDAO implements ICommodityDAO {
     public void createCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
 
-            ICommodityBatch comm = new CommodityBatch();
+            //ICommodityBatch comm = new CommodityBatch();
             PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (?, ?, ?, ?, ?) ");
 
-            create.setInt(1, comm.getCommodityBatchID());
-            create.setInt(2, comm.getCommodityID());
-            create.setString(3, comm.getManufacturer());
-            create.setInt(4, comm.getStock());
-            create.setBoolean(5, comm.isRemainder());
+            create.setInt(1, commodityBatch.getCommodityBatchID());
+            create.setInt(2, commodityBatch.getCommodityID());
+            create.setString(3, commodityBatch.getManufacturer());
+            create.setInt(4, commodityBatch.getStock());
+            create.setBoolean(5, commodityBatch.isRemainder());
             create.executeUpdate();
 
         } catch (SQLException e) {
@@ -81,21 +81,23 @@ public class CommodityDAO implements ICommodityDAO {
     public ICommodityBatch getCBatch(int commodityBatchID) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
             ICommodityBatch ICom = new CommodityBatch();
-            PreparedStatement IComST = con.prepareStatement("SELECT * FROM cBatch WHERE cb_ID = ?;");
-            IComST.setInt(1, commodityBatchID);
-            ResultSet IComRS = IComST.executeQuery();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM cBatch WHERE cb_ID = ?;");
+            ps.setInt(1, commodityBatchID);
+            ResultSet resultSet = ps.executeQuery();
 
-            if (IComRS.next()) {
-                ICom.setCommodityBatchID(IComRS.getInt("c_ID"));
-                ICom.setCommodityID(IComRS.getInt("c_ID"));
-                ICom.setStock(IComRS.getInt("stock"));
-                ICom.setRemainder(IComRS.getBoolean("remainder"));
+            if (resultSet.next()) {
+                ICom.setCommodityBatchID(resultSet.getInt("cb_ID"));
+                ICom.setCommodityID(resultSet.getInt("c_ID"));
+                ICom.setManufacturer(resultSet.getString("manufacturer"));
+                ICom.setStock(resultSet.getInt("stock"));
+                ICom.setRemainder(resultSet.getBoolean("remainder"));
             }
             return ICom;
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }
     }
+    ;
 
     @Override
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {
@@ -233,7 +235,7 @@ public class CommodityDAO implements ICommodityDAO {
 
             //check remainder?
 
-            PreparedStatement ps = con.prepareStatement("UPDATE cBatch set stock = ?, remainder = ? WHERE cb_ID = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE cBatch SET stock = ?, remainder = ? WHERE cb_ID = ?");
 
             ps.setInt(1, commodityBatch.getStock());
             ps.setBoolean(2, commodityBatch.isRemainder());
@@ -259,8 +261,17 @@ public class CommodityDAO implements ICommodityDAO {
 
     @Override
     public void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException {
+        try (Connection con = createConnection()){
+            PreparedStatement ps = con.prepareStatement("DELETE FROM cBatch Where cb_ID = ?");
 
+            ps.setInt(1, commodityBatchID);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
+
 
     @Override  /*PROBLEM! da ingrediens mængde er angivet for én pille og ikke for en batch mængde...
     logik -> en opskrift definerer en standart batch størrelse og tilsvarrende ingrediensmængder? */

@@ -27,8 +27,8 @@ public class CommodityDAOTest {
     public void commodityTest() {
 
         ICommodity test = new Commodity();
-        test.setCommodityID(140);
-        test.setCommodityName("Laktase");
+        test.setCommodityID(142);
+        test.setCommodityName("Silica");
         test.setActive(true);
         test.setActive(true);
 
@@ -36,7 +36,7 @@ public class CommodityDAOTest {
         try {
             //Create commodity
             commodityDAO.createCommodity(test);
-            ICommodity recived = commodityDAO.getCommodity(140);
+            ICommodity recived = commodityDAO.getCommodity(test.getCommodityID());
             assertEquals(test.getCommodityID(),recived.getCommodityID());
             assertEquals(test.getCommodityName(),recived.getCommodityName());
             assertEquals(test.isActive(),recived.isActive());
@@ -44,10 +44,10 @@ public class CommodityDAOTest {
 
 
             //Update commodity
-            test.setCommodityName("Silica");
+            test.setCommodityName("Laktose");
             test.setActive(false);
             commodityDAO.updateCommodity(test);
-            recived = commodityDAO.getCommodity(140);
+            recived = commodityDAO.getCommodity(test.getCommodityID());
             assertEquals(test.getCommodityName(),recived.getCommodityName());
             assertEquals(test.isActive(),recived.isActive());
 
@@ -55,7 +55,7 @@ public class CommodityDAOTest {
 
 
             //Delete commodity
-             commodityDAO.deleteCommodity(test.getCommodityID());
+             //commodityDAO.deleteCommodity(test.getCommodityID());
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
             fail();
@@ -68,28 +68,30 @@ public class CommodityDAOTest {
     public void commodityBatchTest() throws IUserDAO.DALException {
         ICommodityBatch test = new CommodityBatch();
 
-        test.setCommodityBatchID(110);
-        test.setCommodityID(220);
+        test.setCommodityBatchID(221);
+        test.setCommodityID(140);
         test.setManufacturer("PP");
         test.setStock(20);
         test.setRemainder(true);
 
-
-
         try {
+            //Create commodityBatch
             commodityDAO.createCBatch(test);
-            ICommodityBatch recived = commodityDAO.getCBatch(110);
+            ICommodityBatch recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getCommodityBatchID(), recived.getCommodityBatchID());
             assertEquals(test.getCommodityID(),recived.getCommodityID());
             assertEquals(test.getManufacturer(),recived.getManufacturer());
             assertEquals(test.getStock(), recived.getStock());
             assertEquals(test.isRemainder(),recived.isRemainder());
 
-
-            test.setStock(200);
+            //Update commodityBatch
+            test.setStock(6);
             commodityDAO.updateCBatch(test);
-            recived = commodityDAO.getCBatch(110);
+            recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
+
+            //Delete commodityBatch
+            commodityDAO.deleteCBatch(test.getCommodityBatchID());
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
