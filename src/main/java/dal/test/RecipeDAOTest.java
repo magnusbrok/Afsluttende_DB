@@ -27,7 +27,7 @@ public class RecipeDAOTest {
             assertEquals(testRecipe.getTitle(), receivedRecipe.getTitle());
             assertEquals(testRecipe.getProductID(), receivedRecipe.getProductID());
             assertEquals(testRecipe.getQuantity(), receivedRecipe.getQuantity());
-            recipeDAO.deleteRecipe(11);
+            recipeDAO.deleteRecipe(testRecipe.getRecipeID());
         }catch (IUserDAO.DALException e) {
             e.printStackTrace();
             fail();
