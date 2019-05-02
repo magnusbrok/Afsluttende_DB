@@ -11,6 +11,7 @@ public class Recipe implements IRecipe {
 
     private int recipeID;
     private int productID;
+    private int quantity;
     private String title;
     private List<IIngredient> ingredientList;
 
@@ -40,6 +41,15 @@ public class Recipe implements IRecipe {
     @Override
     public void setTitle(String titel){this.title = title;}
 
+    @Override
+    public int getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public List<IIngredient> getIngredientList() {
