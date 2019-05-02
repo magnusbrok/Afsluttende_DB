@@ -117,6 +117,7 @@ public class RecipeDAO implements IRecipeDAO {
         try (Connection con = createConnection()){
             PreparedStatement stmt = con.prepareStatement("DELETE FROM Recipe WHERE re_ID = ?");
             stmt.setInt(1,recipeID);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }
