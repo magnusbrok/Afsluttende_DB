@@ -4,13 +4,8 @@ import dal.dao.RecipeDAO;
 import dal.dao.interfaces.IRecipeDAO;
 import dal.dao.interfaces.IUserDAO;
 import dal.dto.Recipe;
-import dal.dto.User;
 import dal.dto.interfaces.IRecipe;
-import dal.dto.interfaces.IUser;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
