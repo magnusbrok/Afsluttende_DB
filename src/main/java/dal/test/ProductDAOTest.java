@@ -71,7 +71,7 @@ public class ProductDAOTest {
         testPBatch.setRecipeID(1);
         testPBatch.setStatusID(1);
 
-        IProductBatch dbPBatch = new ProductBatch();
+        IProductBatch dbPBatch = new ProductBatch(); // Ligger allerede i databasen
         dbPBatch.setProductBatchID(1);
         dbPBatch.setProductID(1);
         dbPBatch.setRecipeID(1);
@@ -87,8 +87,21 @@ public class ProductDAOTest {
             assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
 
             List<IProductBatch> batchList = productDAO.getPBatchList();
-            assertTrue(batchList.contains(testPBatch));
-            assertTrue(batchList.contains(dbPBatch));
+            boolean found = false;
+            for(IProductBatch productBatch: batchList){
+                if(productBatch.getProductBatchID() == testPBatch.getProductBatchID()){
+                    assertEquals(testPBatch.getProductID(),recivedPBatch.getProductID());
+                    assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
+                    assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
+                    found = true;
+                }else if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()){
+                    assertEquals(dbPBatch.getProductID(),recivedPBatch.getProductID());
+                    assertEquals(dbPBatch.getRecipeID(),recivedPBatch.getRecipeID());
+                    assertEquals(dbPBatch.getStatusID(),recivedPBatch.getStatusID());
+                    found = true;
+                }
+            }
+            if()
 
             //Test of Update
             testPBatch.setRecipeID(2);
