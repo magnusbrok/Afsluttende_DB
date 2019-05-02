@@ -15,6 +15,10 @@ public interface IRecipe {
 
     void setProductID(int productID);
 
+    int getQuantity();
+
+    void setQuantity(int quantity);
+
     String getTitle();
 
     void setTitle(String title);

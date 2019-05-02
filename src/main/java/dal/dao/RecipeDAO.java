@@ -22,11 +22,12 @@ public class RecipeDAO implements IRecipeDAO {
     public void createRecipe(IRecipe recipe, int productID) throws IUserDAO.DALException {
         try {
             Connection con = createConnection();
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, p_ID, title) " +
-                    "VALUES (?, ?, ?);");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, title, p_ID, quantity) " +
+                    "VALUES (?, ?, ?, ?);");
             stmt.setInt(1,recipe.getRecipeID());
-            stmt.setInt(2,productID);
-            stmt.setString(3,recipe.getTitle());
+            stmt.setString(2,recipe.getTitle());
+            stmt.setInt(3,productID);
+            stmt.setInt(4,recipe.getQuantity());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
@@ -60,8 +61,9 @@ public class RecipeDAO implements IRecipeDAO {
             ResultSet rs = Statement.executeQuery("SELECT * FROM Recipe WHERE re_ID = " + recipeID + ";");
             if (rs.next()) {
                 recipe.setRecipeID(rs.getInt("re_ID"));
-                recipe.setProductID(rs.getInt("p_ID"));
                 recipe.setTitle(rs.getString("title"));
+                recipe.setProductID(rs.getInt("p_ID"));
+                recipe.setQuantity(rs.getInt("quantity"));
             }
             return recipe;
         } catch (SQLException e) {
@@ -95,14 +97,29 @@ public class RecipeDAO implements IRecipeDAO {
     //UPDATE
     @Override
     public void updateRecipe(IRecipe recipe) throws IUserDAO.DALException {
+        try (Connection con = createConnection()){
 
+            PreparedStatement stmt = con.prepareStatement("UPDATE Recipe SET title = ?, p_ID = ?, quantity = ? WHERE re_ID = ?");
+            stmt.setString(1,recipe.getTitle());
+            stmt.setInt(2,recipe.getProductID());
+            stmt.setInt(3,recipe.getQuantity());
+            stmt.setInt(4,recipe.getRecipeID());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
 
     //DELETE + log recipe
     @Override
     public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
-
+        try (Connection con = createConnection()){
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM Recipe WHERE re_ID = ?");
+            stmt.setInt(1,recipeID);
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override
