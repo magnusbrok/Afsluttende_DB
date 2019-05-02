@@ -37,13 +37,12 @@ public class  ProductDAO implements IProductDAO {
     public void createPBatch(IProductBatch productBatch) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
 
-            PreparedStatement statement = c.prepareStatement("INSERT INTO pBatch VALUES (?,?,?,?,?)");
+            PreparedStatement statement = c.prepareStatement("INSERT INTO pBatch VALUES (?,?,?,?)");
 
             statement.setInt(1,productBatch.getProductBatchID());
             statement.setInt(2,productBatch.getProductID());
             statement.setInt(3,productBatch.getRecipeID());
-            statement.setInt(4,productBatch.getQuantity());
-            statement.setInt(5,productBatch.getStatusID());
+            statement.setInt(4,productBatch.getStatusID());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -84,7 +83,6 @@ public class  ProductDAO implements IProductDAO {
             productBatch.setProductBatchID(resultSet.getInt("pb_ID"));
             productBatch.setProductID(resultSet.getInt("p_ID"));
             productBatch.setRecipeID(resultSet.getInt("re_ID"));
-            productBatch.setQuantity(resultSet.getInt("quantity"));
             productBatch.setStatusID(resultSet.getInt("s_ID"));
 
             return productBatch;
@@ -204,13 +202,12 @@ public class  ProductDAO implements IProductDAO {
         try (Connection c = createConnection()){
 
             PreparedStatement statement = c.prepareStatement("UPDATE pBatch" +
-                    " set p_ID = ?, re_ID = ?, quantity = ?, s_ID = ? WHERE pb_ID = ?");
+                    " set p_ID = ?, re_ID = ?, s_ID = ? WHERE pb_ID = ?");
 
             statement.setInt(1,productBatch.getProductID());
             statement.setInt(2,productBatch.getRecipeID());
-            statement.setInt(3,productBatch.getQuantity());
-            statement.setInt(4,productBatch.getStatusID());
-            statement.setInt(5,productBatch.getProductBatchID());
+            statement.setInt(3,productBatch.getStatusID());
+            statement.setInt(4,productBatch.getProductBatchID());
             statement.executeUpdate();
 
         } catch (SQLException e) {

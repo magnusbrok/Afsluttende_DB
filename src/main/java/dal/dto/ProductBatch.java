@@ -14,7 +14,6 @@ public class ProductBatch implements IProductBatch {
     private int productID;
     private int recipeID;
     private int statusID;
-    private int quantity;
 
     private List<ICommodityBatch> extractList;
 
@@ -56,16 +55,6 @@ public class ProductBatch implements IProductBatch {
     @Override
     public void setStatusID(int statusID) {
         this.statusID = statusID;
-
-    }
-
-    @Override
-    public int getQuantity() {
-        return quantity;
-    }
-
-    @Override
-    public void setQuantity(int quantity) {this.quantity = quantity;
 
     }
 

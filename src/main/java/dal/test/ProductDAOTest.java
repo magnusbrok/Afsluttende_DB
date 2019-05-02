@@ -68,7 +68,6 @@ public class ProductDAOTest {
         IProductBatch testPBatch = new ProductBatch();
         testPBatch.setProductBatchID(364);
         testPBatch.setProductID(1);
-        testPBatch.setQuantity(500);
         testPBatch.setRecipeID(1);
         testPBatch.setStatusID(1);
 
@@ -78,15 +77,14 @@ public class ProductDAOTest {
             IProductBatch recivedPBatch = productDAO.getPBatch(testPBatch.getProductBatchID());
             assertEquals(testPBatch.getProductBatchID(), recivedPBatch.getProductBatchID());
             assertEquals(testPBatch.getProductID(),recivedPBatch.getProductID());
-            assertEquals(testPBatch.getQuantity(),recivedPBatch.getQuantity());
             assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
             assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
 
             //Test of Update
-            testPBatch.setQuantity(200);
+            testPBatch.setRecipeID(2);
             productDAO.updatePBatch(testPBatch);
             recivedPBatch = productDAO.getPBatch(testPBatch.getProductBatchID());
-            assertEquals(testPBatch.getQuantity(),recivedPBatch.getQuantity());
+            assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
 
             productDAO.deletePBatch(testPBatch.getProductBatchID());
             boolean success = false;

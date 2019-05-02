@@ -20,10 +20,6 @@ public interface IProductBatch {
 
     void setStatusID(int statusID);
 
-    int getQuantity();
-
-    void setQuantity(int quantity);
-
     List<ICommodityBatch> getExtractList();
 
     void setExtractList(List<ICommodityBatch> extractList);

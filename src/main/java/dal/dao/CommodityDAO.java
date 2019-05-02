@@ -279,8 +279,8 @@ public class CommodityDAO implements ICommodityDAO {
         try (Connection con = createConnection()) {
 
             Statement statement = con.createStatement();
-            ResultSet minQuantity = statement.executeQuery("SELECT MIN(quantity) FROM Ingredient NATURAL LEFT JOIN cBatch" +
-                    "WHERE c_ID = " + commodityBatch.getCommodityID());
+            ResultSet minQuantity = statement.executeQuery("SELECT MIN(quantity) FROM Ingredient" +
+                    " WHERE c_ID = " + commodityBatch.getCommodityID());
 
             if (commodityBatch.getStock() < minQuantity.getInt(1)){
                 commodityBatch.setRemainder(true);
@@ -297,7 +297,7 @@ public class CommodityDAO implements ICommodityDAO {
 
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT MAX(quantity) " +
-                    "FROM Ingredient NATURAL RIGHT JOIN Commodity WHERE c_ID =" + commodity.getCommodityID());
+                    "FROM Ingredient WHERE c_ID =" + commodity.getCommodityID());
 
             int maxQuantity = resultSet.getInt(1);
             int minRequired = 2;
