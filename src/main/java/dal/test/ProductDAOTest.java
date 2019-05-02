@@ -71,6 +71,12 @@ public class ProductDAOTest {
         testPBatch.setRecipeID(1);
         testPBatch.setStatusID(1);
 
+        IProductBatch dbPBatch = new ProductBatch();
+        dbPBatch.setProductBatchID(1);
+        dbPBatch.setProductID(1);
+        dbPBatch.setRecipeID(1);
+        dbPBatch.setStatusID(2);
+
         try {
             //TEST of Create and Reed
             productDAO.createPBatch(testPBatch);
@@ -79,6 +85,10 @@ public class ProductDAOTest {
             assertEquals(testPBatch.getProductID(),recivedPBatch.getProductID());
             assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
             assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
+
+            List<IProductBatch> batchList = productDAO.getPBatchList();
+            assertTrue(batchList.contains(testPBatch));
+            assertTrue(batchList.contains(dbPBatch));
 
             //Test of Update
             testPBatch.setRecipeID(2);
@@ -102,6 +112,35 @@ public class ProductDAOTest {
         }
     }
 
+//    @Test
+//    public void getPBatchListTest() throws IUserDAO.DALException {
+//
+//        //Initialisation
+//        IProductBatch dbPBatch = new ProductBatch();
+//            dbPBatch.setProductBatchID(1);
+//            dbPBatch.setProductID(1);
+//            dbPBatch.setRecipeID(1);
+//            dbPBatch.setStatusID(2);
+//
+//        IProductBatch testPBatch = new ProductBatch();
+//            testPBatch.setProductBatchID(364);
+//            testPBatch.setProductID(1);
+//            testPBatch.setRecipeID(1);
+//            testPBatch.setStatusID(1);
+//
+//
+//        try {
+//            productDAO.createPBatch(testPBatch);
+//            List<IProductBatch> batchList = productDAO.getPBatchList();
+//            assertTrue(batchList.contains(testPBatch) || batchList.contains(dbPBatch));
+//
+//            productDAO.deletePBatch(testPBatch.getProductBatchID());
+//
+//        } catch (IUserDAO.DALException e) {
+//            e.printStackTrace();
+//            fail();
+//        }
+//    }
 
 //    @Test
 //    public void getPBatchListTest() {
