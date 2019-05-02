@@ -97,7 +97,7 @@ public class CommodityDAO implements ICommodityDAO {
             throw new IUserDAO.DALException(e.getMessage());
         }
     }
-    ;
+
 
     @Override
     public List<ICommodity> getCommodityList() throws IUserDAO.DALException {

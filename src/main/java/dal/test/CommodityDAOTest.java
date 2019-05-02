@@ -27,7 +27,7 @@ public class CommodityDAOTest {
     public void commodityTest() {
 
         ICommodity test = new Commodity();
-        test.setCommodityID(142);
+        test.setCommodityID(146);
         test.setCommodityName("Silica");
         test.setActive(true);
         test.setActive(true);
@@ -55,7 +55,7 @@ public class CommodityDAOTest {
 
 
             //Delete commodity
-             //commodityDAO.deleteCommodity(test.getCommodityID());
+             commodityDAO.deleteCommodity(test.getCommodityID());
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
             fail();
@@ -68,11 +68,18 @@ public class CommodityDAOTest {
     public void commodityBatchTest() throws IUserDAO.DALException {
         ICommodityBatch test = new CommodityBatch();
 
-        test.setCommodityBatchID(221);
-        test.setCommodityID(140);
+        test.setCommodityBatchID(211);
+        test.setCommodityID(1);
         test.setManufacturer("PP");
         test.setStock(20);
         test.setRemainder(true);
+
+        ICommodityBatch database = new CommodityBatch();
+        database.getCommodityBatchID();
+        database.getCommodityID();
+        database.getManufacturer();
+        database.getStock();
+        database.isRemainder();
 
         try {
             //Create commodityBatch
@@ -90,8 +97,15 @@ public class CommodityDAOTest {
             recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
 
+            //Get commodityBatchList
+            List<ICommodityBatch> cb = commodityDAO.getCBatchList();
+            assertEquals(cb.contains(test), cb.contains(database));
+
+
             //Delete commodityBatch
             commodityDAO.deleteCBatch(test.getCommodityBatchID());
+
+
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
