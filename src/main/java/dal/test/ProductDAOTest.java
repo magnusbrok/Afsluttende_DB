@@ -22,7 +22,7 @@ public class ProductDAOTest {
 
 
     @Test
-    public void productTest() throws IUserDAO.DALException {
+    public void productTest() {
 
         //Initialisation
         IProduct testProduct = new Product();
@@ -44,14 +44,7 @@ public class ProductDAOTest {
 
             //Test of Delete
             productDAO.deleteProduct(testProduct.getProductID());
-            boolean success = false;
-
-            try{
-                productDAO.getProduct(testProduct.getProductID());
-            }catch (IUserDAO.DALException e){
-                success = true;
-            }
-            assertTrue(success);
+            assertEquals(0,productDAO.getProduct(testProduct.getProductID()).getProductID());
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
@@ -62,7 +55,7 @@ public class ProductDAOTest {
 
 
     @Test
-    public void productBatchTest() throws IUserDAO.DALException {
+    public void productBatchTest() {
 
         //Initialisation
         IProductBatch testPBatch = new ProductBatch();
@@ -114,14 +107,7 @@ public class ProductDAOTest {
             assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
 
             productDAO.deletePBatch(testPBatch.getProductBatchID());
-            boolean success = false;
-
-            try{
-                productDAO.getPBatch(testPBatch.getProductBatchID());
-            }catch (IUserDAO.DALException e){
-                success = true;
-            }
-            assertTrue(success);
+            assertEquals(0,productDAO.getPBatch(testPBatch.getProductBatchID()).getProductBatchID());
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
