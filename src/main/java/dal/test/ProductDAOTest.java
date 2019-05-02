@@ -87,13 +87,11 @@ public class ProductDAOTest {
                     assertEquals(testPBatch.getRecipeID(),productBatch.getRecipeID());
                     assertEquals(testPBatch.getStatusID(),productBatch.getStatusID());
                     found = true;
-                }else if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()){
-                    assertEquals(dbPBatch.getProductID(),productBatch.getProductID());
-                    assertEquals(dbPBatch.getRecipeID(),productBatch.getRecipeID());
-                    assertEquals(dbPBatch.getStatusID(),productBatch.getStatusID());
+                }else if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()) {
+                    assertEquals(dbPBatch.getProductID(), productBatch.getProductID());
+                    assertEquals(dbPBatch.getRecipeID(), productBatch.getRecipeID());
+                    assertEquals(dbPBatch.getStatusID(), productBatch.getStatusID());
                     found = true;
-                }else{
-                    found = false;
                 }
             }
             if(found = false){
@@ -114,73 +112,4 @@ public class ProductDAOTest {
             fail();
         }
     }
-
-//    @Test
-//    public void getPBatchListTest() throws IUserDAO.DALException {
-//
-//        //Initialisation
-//        IProductBatch dbPBatch = new ProductBatch();
-//            dbPBatch.setProductBatchID(1);
-//            dbPBatch.setProductID(1);
-//            dbPBatch.setRecipeID(1);
-//            dbPBatch.setStatusID(2);
-//
-//        IProductBatch testPBatch = new ProductBatch();
-//            testPBatch.setProductBatchID(364);
-//            testPBatch.setProductID(1);
-//            testPBatch.setRecipeID(1);
-//            testPBatch.setStatusID(1);
-//
-//
-//        try {
-//            productDAO.createPBatch(testPBatch);
-//            List<IProductBatch> batchList = productDAO.getPBatchList();
-//            assertTrue(batchList.contains(testPBatch) || batchList.contains(dbPBatch));
-//
-//            productDAO.deletePBatch(testPBatch.getProductBatchID());
-//
-//        } catch (IUserDAO.DALException e) {
-//            e.printStackTrace();
-//            fail();
-//        }
-//    }
-
-//    @Test
-//    public void getPBatchListTest() {
-//        IProductBatch testPBatch = new ProductBatch();
-//            testPBatch.setProductBatchID(364);
-//            testPBatch.setProductID(1);
-//            testPBatch.setQuantity(500);
-//            testPBatch.setRecipeID(1);
-//            testPBatch.setStatusID(1);
-//
-//        try {
-//            productDAO.createPBatch(testPBatch);
-//            List<IProductBatch> batchList = productDAO.getPBatchList();
-//
-//            for(IProductBatch batch : batchList){
-//                if(batch.getProductBatchID() == 1){
-//                    assertEquals(1,batch.getProductID());
-//                    assertEquals(10500,batch.getQuantity());
-//                    assertEquals(1,batch.getRecipeID());
-//                    assertEquals(2,batch.getStatusID());
-//                }
-//                if(batch.getProductBatchID() == testPBatch.getProductBatchID()){
-//                    assertEquals(testPBatch.getProductID(),batch.getProductID());
-//                    assertEquals(testPBatch.getQuantity(),batch.getQuantity());
-//                    assertEquals(testPBatch.getRecipeID(),batch.getRecipeID());
-//                    assertEquals(testPBatch.getStatusID(),batch.getStatusID());
-//                }else{
-//                    fail();
-//                }
-//            }
-//
-//            productDAO.deletePBatch(testPBatch.getProductBatchID());
-//
-//        } catch (IUserDAO.DALException e) {
-//            e.printStackTrace();
-//            fail();
-//        }
-//
-//    }
 }

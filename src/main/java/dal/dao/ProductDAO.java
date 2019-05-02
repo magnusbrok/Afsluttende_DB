@@ -59,9 +59,10 @@ public class  ProductDAO implements IProductDAO {
             ResultSet resultSet = statement.executeQuery();
 
             IProduct product = new Product();
-            resultSet.next();
-            product.setProductID(resultSet.getInt("p_ID"));
-            product.setProductName(resultSet.getString("name"));
+            if (resultSet.next()){
+                product.setProductID(resultSet.getInt("p_ID"));
+                product.setProductName(resultSet.getString("name"));
+            }
 
             return product;
 
@@ -77,13 +78,15 @@ public class  ProductDAO implements IProductDAO {
             PreparedStatement statement = c.prepareStatement("SELECT * FROM pBatch WHERE pb_ID = ?");
             statement.setInt(1,productBatchID);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
 
             IProductBatch productBatch = new ProductBatch();
-            productBatch.setProductBatchID(resultSet.getInt("pb_ID"));
-            productBatch.setProductID(resultSet.getInt("p_ID"));
-            productBatch.setRecipeID(resultSet.getInt("re_ID"));
-            productBatch.setStatusID(resultSet.getInt("s_ID"));
+
+            if(resultSet.next()){
+                productBatch.setProductBatchID(resultSet.getInt("pb_ID"));
+                productBatch.setProductID(resultSet.getInt("p_ID"));
+                productBatch.setRecipeID(resultSet.getInt("re_ID"));
+                productBatch.setStatusID(resultSet.getInt("s_ID"));
+            }
 
             return productBatch;
 
