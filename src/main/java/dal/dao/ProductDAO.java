@@ -112,25 +112,25 @@ public class  ProductDAO implements IProductDAO {
         }
     }
 
-    @Override
-    public List<IProductBatch> getPBatchList(IProduct product) throws IUserDAO.DALException {
-        try (Connection c = createConnection()){
-
-            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE p_ID = ?");
-            statement.setInt(1,product.getProductID());
-            ResultSet resultSet = statement.executeQuery();
-
-            List<IProductBatch> productBatchList = new ArrayList<>();
-            while (resultSet.next()) {
-                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
-                productBatchList.add(productBatch);
-            }
-            return productBatchList;
-
-        } catch (SQLException e) {
-            throw new IUserDAO.DALException(e.getMessage());
-        }
-    }
+//    @Override
+//    public List<IProductBatch> getPBatchList(IProduct product) throws IUserDAO.DALException {
+//        try (Connection c = createConnection()){
+//
+//            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE p_ID = ?");
+//            statement.setInt(1,product.getProductID());
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            List<IProductBatch> productBatchList = new ArrayList<>();
+//            while (resultSet.next()) {
+//                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+//                productBatchList.add(productBatch);
+//            }
+//            return productBatchList;
+//
+//        } catch (SQLException e) {
+//            throw new IUserDAO.DALException(e.getMessage());
+//        }
+//    }
 
 //    @Override
 //    public List<IProductBatch> getPBatchList(IRecipe recipe) throws IUserDAO.DALException {
@@ -142,33 +142,34 @@ public class  ProductDAO implements IProductDAO {
 //        return null;
 //    }
 
+//    @Override
+//    public List<IProductBatch> getPBatchList(int statusID) throws IUserDAO.DALException {
+//        try (Connection c = createConnection()){
+//
+//            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE s_ID = ?");
+//            statement.setInt(1,statusID);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            List<IProductBatch> productBatchList = new ArrayList<>();
+//            while (resultSet.next()) {
+//                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
+//                productBatchList.add(productBatch);
+//            }
+//
+//            return productBatchList;
+//
+//        } catch (SQLException e) {
+//            throw new IUserDAO.DALException(e.getMessage());
+//        }
+//    }
+
     @Override
-    public List<IProductBatch> getPBatchList(int statusID) throws IUserDAO.DALException {
-        try (Connection c = createConnection()){
-
-            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch WHERE s_ID = ?");
-            statement.setInt(1,statusID);
-            ResultSet resultSet = statement.executeQuery();
-
-            List<IProductBatch> productBatchList = new ArrayList<>();
-            while (resultSet.next()) {
-                IProductBatch productBatch = getPBatch(resultSet.getInt("pb_ID"));
-                productBatchList.add(productBatch);
-            }
-
-            return productBatchList;
-
-        } catch (SQLException e) {
-            throw new IUserDAO.DALException(e.getMessage());
-        }
-    }
-
-    @Override
-    public List<IProductBatch> getExtractList(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+    public List<IProductBatch> getExtractList(int commodityBatchID) throws IUserDAO.DALException {
         try(Connection c = createConnection()){
-            PreparedStatement statement = c.prepareStatement("SELECT pb_ID FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE cb_ID = ?;");
+            PreparedStatement statement = c.prepareStatement("SELECT pb_ID " +
+                    "FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE cb_ID = ?;");
 
-            statement.setInt(1,commodityBatch.getCommodityBatchID());
+            statement.setInt(1,commodityBatchID);
             ResultSet resultSet = statement.executeQuery();
 
             List<IProductBatch> productBatchList = new ArrayList<>();

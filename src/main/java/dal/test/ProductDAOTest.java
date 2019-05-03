@@ -17,9 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductDAOTest {
 
-
     IProductDAO productDAO = new ProductDAO();
-
 
     @Test
     public void productTest() {
@@ -52,8 +50,6 @@ public class ProductDAOTest {
         }
     }
 
-
-
     @Test
     public void productBatchTest() {
 
@@ -79,15 +75,10 @@ public class ProductDAOTest {
             assertEquals(testPBatch.getRecipeID(),recivedPBatch.getRecipeID());
             assertEquals(testPBatch.getStatusID(),recivedPBatch.getStatusID());
 
-            List<IProductBatch> batchList = productDAO.getPBatchList();
+            List<IProductBatch> batchList = productDAO.getExtractList(25);
             boolean found = false;
             for(IProductBatch productBatch: batchList){
-                if(productBatch.getProductBatchID() == testPBatch.getProductBatchID()){
-                    assertEquals(testPBatch.getProductID(),productBatch.getProductID());
-                    assertEquals(testPBatch.getRecipeID(),productBatch.getRecipeID());
-                    assertEquals(testPBatch.getStatusID(),productBatch.getStatusID());
-                    found = true;
-                }else if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()) {
+                if (productBatch.getProductBatchID() == dbPBatch.getProductBatchID()) {
                     assertEquals(dbPBatch.getProductID(), productBatch.getProductID());
                     assertEquals(dbPBatch.getRecipeID(), productBatch.getRecipeID());
                     assertEquals(dbPBatch.getStatusID(), productBatch.getStatusID());
