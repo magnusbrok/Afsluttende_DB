@@ -216,6 +216,8 @@ public class CommodityDAO implements ICommodityDAO {
         }
     }
 
+
+
     @Override
     public List<ICommodityBatch> getExtractList(int productPatchID) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
@@ -295,13 +297,35 @@ public class CommodityDAO implements ICommodityDAO {
     public void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
 
-            PreparedStatement ps = con.prepareStatement("DELTE FROM Exstract");
-
-            ps = con.prepareStatement("DELETE FROM cBatch Where cb_ID = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM cBatch Where cb_ID = ?");
 
             ps.setInt(1, commodityBatchID);
             ps.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteExtract(int pb_ID, int cb_ID) throws IUserDAO.DALException {
+
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT c_ID from cBatch WHERE cb_ID = ?; ");
+            statement.setInt(1, cb_ID);
+            ResultSet resultset = statement.executeQuery();
+
+            if (resultset.next()) {
+                int c_ID = resultset.getInt("c_ID");
+
+                statement = c.prepareStatement("DELETE FROM Extract WHERE pb_ID = ? AND cb_ID = ? AND c_ID = ?;");
+                statement.setInt(1, pb_ID);
+                statement.setInt(2, cb_ID);
+                statement.setInt(3, c_ID);
+                statement.executeUpdate();
+
+            }
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }

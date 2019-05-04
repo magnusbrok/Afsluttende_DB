@@ -95,7 +95,7 @@ public class CommodityDAOTest {
             assertEquals(test.isRemainder(),recived.isRemainder());
 
             test.setStock(10000);
-            commodityDAO.createExtract(1,212,10000);
+            commodityDAO.createExtract(1,test.getCommodityBatchID(),10000);
             recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
             assertTrue(recived.isRemainder());
@@ -124,6 +124,7 @@ public class CommodityDAOTest {
             }
 
             //Delete commodityBatch
+            commodityDAO.deleteExtract(1,test.getCommodityBatchID());
             commodityDAO.deleteCBatch(test.getCommodityBatchID());
 
             assertEquals(0, commodityDAO.getCBatch(test.getCommodityBatchID()).getCommodityBatchID());
