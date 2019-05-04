@@ -308,8 +308,7 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
 
-    @Override
-    public void checkRemainder(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+    private void checkRemainder(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
 
             Statement statement = con.createStatement();
@@ -327,9 +326,8 @@ public class CommodityDAO implements ICommodityDAO {
             throw new IUserDAO.DALException(e.getMessage());
         }
     }
-
-    @Override
-    public void checkReorder(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
+    
+    private void checkReorder(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
 
             int maxQuantity = 0;
