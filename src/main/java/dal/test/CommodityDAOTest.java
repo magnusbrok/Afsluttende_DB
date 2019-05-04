@@ -94,9 +94,8 @@ public class CommodityDAOTest {
             assertEquals(test.getStock(), recived.getStock());
             assertEquals(test.isRemainder(),recived.isRemainder());
 
-            //Update commodityBatch + reminder check
             test.setStock(10000);
-            commodityDAO.updateCBatch(test);
+            commodityDAO.createExtract(1,212,10000);
             recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
             assertTrue(recived.isRemainder());
