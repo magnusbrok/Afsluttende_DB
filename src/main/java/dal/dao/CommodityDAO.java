@@ -194,16 +194,22 @@ public class CommodityDAO implements ICommodityDAO {
 
             PreparedStatement statement = c.prepareStatement("SELECT c_ID from cBatch WHERE cb_ID = ?; ");
             statement.setInt(1, cb_ID);
-            int c_ID  = statement.executeUpdate();
+            ResultSet resultset = statement.executeQuery();
 
-            statement = c.prepareStatement("INSERT INTO Extract VALUES (?, ?, ?);");
-            statement.setInt(1 , pb_ID);
-            statement.setInt(2 , cb_ID);
-            statement.setInt(3 , c_ID);
-            statement.executeUpdate();
+            if (resultset.next()) {
+
+                int c_ID = resultset.getInt("c_ID");
+                statement = c.prepareStatement("INSERT INTO Extract VALUES (?, ?, ?);");
+                statement.setInt(1 , pb_ID);
+                statement.setInt(2 , cb_ID);
+                statement.setInt(3 , c_ID);
+                statement.executeUpdate();
+            }
+
 
             ICommodityBatch changedBatch = getCBatch(cb_ID);
             changedBatch.setStock(changedBatch.getStock()-exstractSize);
+            updateCBatch(changedBatch);
 
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
@@ -288,7 +294,10 @@ public class CommodityDAO implements ICommodityDAO {
     @Override
     public void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
-            PreparedStatement ps = con.prepareStatement("DELETE FROM cBatch Where cb_ID = ?");
+
+            PreparedStatement ps = con.prepareStatement("DELTE FROM Exstract");
+
+            ps = con.prepareStatement("DELETE FROM cBatch Where cb_ID = ?");
 
             ps.setInt(1, commodityBatchID);
             ps.executeUpdate();
