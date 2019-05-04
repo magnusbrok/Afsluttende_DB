@@ -28,7 +28,7 @@ public interface ICommodityDAO {
 
     List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException;
 
-    List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
+    List<ICommodityBatch> getExtractList(int productBatchID) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
 
     //Update
     void updateCommodity(ICommodity commodity) throws IUserDAO.DALException;
@@ -40,5 +40,6 @@ public interface ICommodityDAO {
 
     //Helping Methods - skal køres efter en update/delete metode
     void checkRemainder(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
-    void checkReorder(ICommodity commodity) throws IUserDAO.DALException;
+
+    void checkReorder(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
 }
