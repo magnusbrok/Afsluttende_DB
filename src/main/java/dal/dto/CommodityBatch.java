@@ -1,7 +1,6 @@
 package dal.dto;
 
 
-import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.ICommodityBatch;
 
 public class CommodityBatch implements ICommodityBatch {
@@ -11,7 +10,7 @@ public class CommodityBatch implements ICommodityBatch {
     private int commodityBatchID;
     private int commodityID;
     private String manufacturer;
-    private int stock;
+    private float stock;
     private boolean remainder;
 
    // private List<IProductBatch> extractList; //?
@@ -48,12 +47,12 @@ public class CommodityBatch implements ICommodityBatch {
     }
 
     @Override
-    public int getStock() {
+    public float getStock() {
         return stock;
     }
 
     @Override
-    public void setStock(int stock) {
+    public void setStock(float stock) {
         this.stock = stock;
     }
 

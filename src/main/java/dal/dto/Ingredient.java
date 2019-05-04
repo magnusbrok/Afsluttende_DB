@@ -8,8 +8,8 @@ public class Ingredient implements IIngredient {
 
     private int recipeID;
     private int commodityID;
-    private int quantity;
-    private int deviation;
+    private float quantity;
+    private float deviation;
 
 
     @Override
@@ -35,19 +35,19 @@ public class Ingredient implements IIngredient {
     }
 
     @Override
-    public int getQuantity(){return quantity;}
+    public float getQuantity(){return quantity;}
 
     @Override
-    public void setQuantity(int quantity){this.quantity = quantity;}
+    public void setQuantity(float quantity){this.quantity = quantity;}
 
 
     @Override
-    public int getDeviation() {
+    public float getDeviation() {
         return deviation;
     }
 
     @Override
-    public void setDeviation(int deviation) {
+    public void setDeviation(float deviation) {
         this.deviation = deviation;
     }
 }

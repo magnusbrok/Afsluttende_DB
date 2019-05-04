@@ -1,7 +1,5 @@
 package dal.dto.interfaces;
 
-import dal.dto.interfaces.ICommodity;
-
 public interface ICommodityBatch {
 
     //døjer med nogle overvejelser omkring relevante attributter... - siff
@@ -17,8 +15,8 @@ public interface ICommodityBatch {
     String getManufacturer();
     void setManufacturer(String manufacturer);
 
-    int getStock();
-    void setStock(int stock);
+    float getStock();
+    void setStock(float stock);
 
 
     boolean isRemainder();

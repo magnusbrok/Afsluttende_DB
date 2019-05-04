@@ -20,8 +20,8 @@ public class RecipeDAO implements IRecipeDAO {
     //CREATE
     @Override
     public void createRecipe(IRecipe recipe, int productID) throws IUserDAO.DALException {
-        try {
-            Connection con = createConnection();
+        try (Connection con = createConnection();){
+
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Recipe (re_ID, title, p_ID, quantity) " +
                     "VALUES (?, ?, ?, ?);");
             stmt.setInt(1,recipe.getRecipeID());
@@ -36,14 +36,14 @@ public class RecipeDAO implements IRecipeDAO {
 
     @Override
     public void createIngredient(IIngredient ingredient) throws IUserDAO.DALException {
-        try {
-            Connection con = createConnection();
+        try (Connection con = createConnection()) {
+
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Ingredient (re_ID, c_ID, quantity, deviation) " +
                     "VALUES (?, ?, ?, ?);");
             stmt.setInt(1,ingredient.getRecipeID());
             stmt.setInt(2,ingredient.getCommodityID());
-            stmt.setInt(3,ingredient.getQuantity());
-            stmt.setInt(4,ingredient.getDeviation());
+            stmt.setFloat(3,ingredient.getQuantity());
+            stmt.setFloat(4,ingredient.getDeviation());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
@@ -54,8 +54,8 @@ public class RecipeDAO implements IRecipeDAO {
     //READ
     @Override
     public IRecipe getRecipe(int recipeID) throws IUserDAO.DALException {
-        try {
-            Connection con = createConnection();
+        try (Connection con = createConnection()) {
+
             IRecipe recipe = new Recipe();
             Statement Statement = con.createStatement();
             ResultSet rs = Statement.executeQuery("SELECT * FROM Recipe WHERE re_ID = " + recipeID + ";");
@@ -73,8 +73,8 @@ public class RecipeDAO implements IRecipeDAO {
 
     @Override
     public List<IIngredient> getIngredientList(IRecipe recipe) throws IUserDAO.DALException {
-        try {
-            Connection con = createConnection();
+        try (Connection con = createConnection()) {
+
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Ingredient WHERE re_ID = " + recipe.getRecipeID() + ";");
             List<IIngredient> ingredientList = new ArrayList<>();
@@ -113,6 +113,7 @@ public class RecipeDAO implements IRecipeDAO {
     @Override
     public void deleteIngredient(int recipeID, int commodityID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
+
             PreparedStatement stmt = con.prepareStatement("DELETE FROM Ingredient WHERE re_ID = ? AND c_ID = ?");
             stmt.setInt(1,recipeID);
             stmt.setInt(2,commodityID);
@@ -126,6 +127,7 @@ public class RecipeDAO implements IRecipeDAO {
     @Override
     public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
+
             PreparedStatement stmt = con.prepareStatement("DELETE FROM Recipe WHERE re_ID = ?");
             stmt.setInt(1,recipeID);
             stmt.executeUpdate();

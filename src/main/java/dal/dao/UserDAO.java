@@ -135,8 +135,7 @@ public class UserDAO implements IUserDAO {
     }
 // so far this method isn't used anymore sine DAO doesn't handle the creatation of roles.
     private void insertRole(IUser user, String role) throws DALException {
-        try {
-            Connection con = createConnection();
+        try (Connection con = createConnection()){
 
 
             PreparedStatement stmt = con.prepareStatement("INSERT INTO Roles (name) " +

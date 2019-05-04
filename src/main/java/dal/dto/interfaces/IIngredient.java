@@ -8,9 +8,9 @@ public interface IIngredient {
     int getCommodityID();
     void setCommodityID(int commodityID);
 
-    int getQuantity();
-    void setQuantity(int quantity);
+    float getQuantity();
+    void setQuantity(float quantity);
 
-    int getDeviation();
-    void setDeviation(int deviation);
+    float getDeviation();
+    void setDeviation(float deviation);
 }

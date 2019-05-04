@@ -46,7 +46,7 @@ public class CommodityDAO implements ICommodityDAO {
             create.setInt(1, commodityBatch.getCommodityBatchID());
             create.setInt(2, commodityBatch.getCommodityID());
             create.setString(3, commodityBatch.getManufacturer());
-            create.setInt(4, commodityBatch.getStock());
+            create.setFloat(4, commodityBatch.getStock());
             create.setBoolean(5, commodityBatch.isRemainder());
             create.executeUpdate();
 
@@ -92,7 +92,7 @@ public class CommodityDAO implements ICommodityDAO {
                 ICom.setCommodityBatchID(resultSet.getInt("cb_ID"));
                 ICom.setCommodityID(resultSet.getInt("c_ID"));
                 ICom.setManufacturer(resultSet.getString("manufacturer"));
-                ICom.setStock(resultSet.getInt("stock"));
+                ICom.setStock(resultSet.getFloat("stock"));
                 ICom.setRemainder(resultSet.getBoolean("remainder"));
             }
             return ICom;
@@ -189,7 +189,7 @@ public class CommodityDAO implements ICommodityDAO {
 
     }
     @Override
-    public void createExtract(int pb_ID, int cb_ID) throws IUserDAO.DALException {
+    public void createExtract(int pb_ID, int cb_ID, float exstractSize) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
 
             PreparedStatement statement = c.prepareStatement("SELECT c_ID from cBatch WHERE cb_ID = ?; ");
@@ -200,8 +200,10 @@ public class CommodityDAO implements ICommodityDAO {
             statement.setInt(1 , pb_ID);
             statement.setInt(2 , cb_ID);
             statement.setInt(3 , c_ID);
-
             statement.executeUpdate();
+
+            ICommodityBatch changedBatch = getCBatch(cb_ID);
+            changedBatch.setStock(changedBatch.getStock()-exstractSize);
 
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
@@ -259,7 +261,7 @@ public class CommodityDAO implements ICommodityDAO {
 
             PreparedStatement ps = con.prepareStatement("UPDATE cBatch SET stock = ?, remainder = ? WHERE cb_ID = ?");
 
-            ps.setInt(1, commodityBatch.getStock());
+            ps.setFloat(1, commodityBatch.getStock());
             ps.setBoolean(2, commodityBatch.isRemainder());
             ps.setInt(3, commodityBatch.getCommodityBatchID());
             ps.executeUpdate();
