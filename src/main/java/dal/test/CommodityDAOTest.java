@@ -97,18 +97,20 @@ public class CommodityDAOTest {
             assertEquals(test.getStock(), recived.getStock());
             assertEquals(test.isRemainder(),recived.isRemainder());
 
-            //Update commodityBatch
+            //Update commodityBatch + reminder check
             test.setStock(10000);
             commodityDAO.updateCBatch(test);
             recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
             assertEquals(true, recived.isRemainder());
 
-            //Get commodityBatchList
+            //Get commodityBatchList !! skal rettes til at checke om reminders (dvs. testbatch) ikke forekommer
             List<ICommodityBatch> cb = commodityDAO.getCBatchList();
                     boolean found = false;
                     for (ICommodityBatch commodityBatch: cb) {
                         if (commodityBatch.getCommodityBatchID() == test.getCommodityBatchID()) {
+                            // fail(); her!!
+
                             assertEquals(test.getCommodityID(), commodityBatch.getCommodityID());
                             assertEquals(test.getManufacturer(), commodityBatch.getManufacturer());
                             assertEquals(test.isRemainder(), commodityBatch.isRemainder());
@@ -118,7 +120,20 @@ public class CommodityDAOTest {
                     if (!found) {
                         fail();
                     }
-
+            //ExtractListTest
+            List<ICommodityBatch> list = commodityDAO.getExtractList(1);
+            found = false;
+            for (ICommodityBatch commodityBatch: list) {
+                if (commodityBatch.getCommodityBatchID() == 24) {
+                    assertEquals(2, commodityBatch.getCommodityID());
+                    assertEquals("TEST_Manufacturer A", commodityBatch.getManufacturer());
+                    assertEquals(0, commodityBatch.isRemainder());
+                    found = true;
+                }
+            }
+            if (!found) {
+                fail();
+            }
 
             //Delete commodityBatch
             commodityDAO.deleteCBatch(test.getCommodityBatchID());
@@ -132,20 +147,5 @@ public class CommodityDAOTest {
         }
     }
 
-//    @Test
-//    public void getExtractListTest(){
-//        List<ICommodityBatch> list = commodityDAO.getExtractList(1); //metode parameter skal ændres
-//        boolean found = false;
-//        for (ICommodityBatch commodityBatch: list) {
-//            if (commodityBatch.getCommodityBatchID() == 24) {
-//                assertEquals(2, commodityBatch.getCommodityID());
-//                assertEquals("TEST_Manufacturer A", commodityBatch.getManufacturer());
-//                assertEquals(0, commodityBatch.isRemainder());
-//                found = true;
-//            }
-//        }
-//        if (!found) {
-//            fail();
-//        }
-//    }
+    //TODO implement test of reorderCheck!
 }

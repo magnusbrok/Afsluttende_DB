@@ -27,7 +27,7 @@ public interface ICommodityDAO {
 
     List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException;
 
-    List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
+    List<ICommodityBatch> getExtractList(int productBatchID) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
 
     //Update
     void updateCommodity(ICommodity commodity) throws IUserDAO.DALException;

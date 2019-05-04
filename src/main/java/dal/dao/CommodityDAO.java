@@ -189,13 +189,13 @@ public class CommodityDAO implements ICommodityDAO {
     }
 
     @Override
-    public List<ICommodityBatch> getExtractList(IProductBatch productBatch) throws IUserDAO.DALException {
+    public List<ICommodityBatch> getExtractList(int productPatchID) throws IUserDAO.DALException {
         try (Connection c = createConnection()){
 
             PreparedStatement statement = c.prepareStatement("SELECT cb_ID " +
                     "FROM pBatch NATURAL LEFT JOIN Extract NATURAL LEFT JOIN cBatch WHERE pb_ID = ?");
 
-            statement.setInt(1,productBatch.getProductBatchID());
+            statement.setInt(1,productPatchID);
             ResultSet resultSet = statement.executeQuery();
 
             List<ICommodityBatch> commodityBatchList = new ArrayList<>();
