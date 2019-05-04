@@ -140,7 +140,7 @@ public class CommodityDAO implements ICommodityDAO {
     public List<ICommodityBatch> getCBatchList() throws IUserDAO.DALException {
         try (Connection con = createConnection()){
             List<ICommodityBatch> cBList = new ArrayList<>();
-            PreparedStatement cBst = con.prepareStatement("SELECT * FROM cBatch WHERE reminder = 0;");
+            PreparedStatement cBst = con.prepareStatement("SELECT * FROM cBatch WHERE remainder = 0;");
             ResultSet cbRS = cBst.executeQuery();
 
             while (cbRS.next()) {
