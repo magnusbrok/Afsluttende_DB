@@ -1,12 +1,16 @@
 package dal.test;
 
 import dal.dao.CommodityDAO;
+import dal.dao.RecipeDAO;
 import dal.dao.interfaces.ICommodityDAO;
+import dal.dao.interfaces.IRecipeDAO;
 import dal.dao.interfaces.IUserDAO;
 import dal.dto.Commodity;
 import dal.dto.CommodityBatch;
+import dal.dto.Ingredient;
 import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.ICommodityBatch;
+import dal.dto.interfaces.IIngredient;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -136,5 +140,59 @@ public class CommodityDAOTest {
         }
     }
 
-    //TODO implement test of reorderCheck!
+    @Test
+    public void reorderCheckTest(){
+
+        //Initiation
+        ICommodity testCommodity = new Commodity();
+            testCommodity.setCommodityID(320);
+            testCommodity.setCommodityName("Bananer");
+            testCommodity.setActive(false);
+            testCommodity.setReorder(true);
+
+        IIngredient testIngredient = new Ingredient();
+            testIngredient.setRecipeID(1);
+            testIngredient.setCommodityID(testCommodity.getCommodityID());
+            testIngredient.setQuantity(10);
+            testIngredient.setDeviation(5);
+
+        ICommodityBatch testCommodityBatch = new CommodityBatch();
+            testCommodityBatch.setCommodityBatchID(326);
+            testCommodityBatch.setCommodityID(testCommodity.getCommodityID());
+            testCommodityBatch.setManufacturer("DTU");
+            testCommodityBatch.setStock(testIngredient.getQuantity()*3);
+            testCommodityBatch.setRemainder(false);
+
+        IRecipeDAO recipeDAO = new RecipeDAO();
+
+        try {
+            commodityDAO.createCommodity(testCommodity);
+            recipeDAO.createIngredient(testIngredient);
+            testIngredient.setRecipeID(testIngredient.getRecipeID()+1);
+            testIngredient.setQuantity(8);
+            recipeDAO.createIngredient(testIngredient);
+
+            //Tests reorder when Batch is created
+            commodityDAO.createCBatch(testCommodityBatch); // udløser reorder
+            assertFalse(commodityDAO.getCommodity(testCommodity.getCommodityID()).isReorder());
+
+            //Tests reorder when stock is updated
+            testCommodityBatch.setStock(18); //stock which do not fulfill the requirement
+            commodityDAO.updateCBatch(testCommodityBatch);
+            assertTrue(commodityDAO.getCommodity(testCommodity.getCommodityID()).isReorder());
+            assertFalse(commodityDAO.getCBatch(testCommodityBatch.getCommodityBatchID()).isRemainder());
+
+            commodityDAO.deleteCBatch(testCommodityBatch.getCommodityBatchID());
+            recipeDAO.deleteIngredient(testIngredient.getRecipeID(), testIngredient.getCommodityID());
+            recipeDAO.deleteIngredient(testIngredient.getRecipeID(), testIngredient.getCommodityID());
+            recipeDAO.deleteIngredient(testIngredient.getRecipeID()-1, testIngredient.getCommodityID());
+            commodityDAO.deleteCommodity(testCommodity.getCommodityID());
+
+        } catch (IUserDAO.DALException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
 }
