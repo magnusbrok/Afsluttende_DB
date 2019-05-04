@@ -30,8 +30,7 @@ public class CommodityDAOTest {
         test.setCommodityID(120);
         test.setCommodityName("Silica");
         test.setActive(true);
-        test.setActive(true);
-
+        test.setReorder(false);
 
         try {
             //Create commodity

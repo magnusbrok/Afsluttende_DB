@@ -1,5 +1,6 @@
 package dal.dao;
 
+import com.mysql.cj.protocol.Resultset;
 import dal.dao.interfaces.ICommodityDAO;
 import dal.dao.interfaces.IUserDAO;
 import dal.dto.Commodity;
@@ -184,6 +185,25 @@ public class CommodityDAO implements ICommodityDAO {
             throw new IUserDAO.DALException(e.getMessage());
         }
 
+    }
+    @Override
+    public void createExtract(int pb_ID, int cb_ID) throws IUserDAO.DALException {
+        try (Connection c = createConnection()){
+
+            PreparedStatement statement = c.prepareStatement("SELECT c_ID from cBatch WHERE cb_ID = ?; ");
+            statement.setInt(1, cb_ID);
+            int c_ID  = statement.executeUpdate();
+
+            statement = c.prepareStatement("INSERT INTO Extract VALUES (?, ?, ?);");
+            statement.setInt(1 , pb_ID);
+            statement.setInt(2 , cb_ID);
+            statement.setInt(3 , c_ID);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new IUserDAO.DALException(e.getMessage());
+        }
     }
 
     @Override

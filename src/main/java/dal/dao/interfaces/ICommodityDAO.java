@@ -11,6 +11,7 @@ public interface ICommodityDAO {
     //Create
     void createCommodity(ICommodity commodity) throws IUserDAO.DALException;
     void createCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
+    void createExtract(int pb_ID, int cb_ID) throws IUserDAO.DALException;
 
     //Read
     ICommodity getCommodity(int commodityID) throws IUserDAO.DALException;
