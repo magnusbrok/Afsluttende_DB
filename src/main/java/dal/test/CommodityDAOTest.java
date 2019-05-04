@@ -12,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CommodityDAOTest {
@@ -101,32 +99,24 @@ public class CommodityDAOTest {
             commodityDAO.updateCBatch(test);
             recived = commodityDAO.getCBatch(test.getCommodityBatchID());
             assertEquals(test.getStock(),recived.getStock());
-            assertEquals(true, recived.isRemainder());
+            assertTrue(recived.isRemainder());
 
             //Get commodityBatchList !! skal rettes til at checke om reminders (dvs. testbatch) ikke forekommer
             List<ICommodityBatch> cb = commodityDAO.getCBatchList();
-                    boolean found = false;
-                    for (ICommodityBatch commodityBatch: cb) {
-                        if (commodityBatch.getCommodityBatchID() == test.getCommodityBatchID()) {
-                            // fail(); her!!
+            for (ICommodityBatch commodityBatch: cb) {
+                if (commodityBatch.getCommodityBatchID() == test.getCommodityBatchID()) {
+                    fail();
+                }
+            }
 
-                            assertEquals(test.getCommodityID(), commodityBatch.getCommodityID());
-                            assertEquals(test.getManufacturer(), commodityBatch.getManufacturer());
-                            assertEquals(test.isRemainder(), commodityBatch.isRemainder());
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        fail();
-                    }
             //ExtractListTest
             List<ICommodityBatch> list = commodityDAO.getExtractList(1);
-            found = false;
+            boolean found = false;
             for (ICommodityBatch commodityBatch: list) {
                 if (commodityBatch.getCommodityBatchID() == 24) {
                     assertEquals(2, commodityBatch.getCommodityID());
                     assertEquals("TEST_Manufacturer A", commodityBatch.getManufacturer());
-                    assertEquals(0, commodityBatch.isRemainder());
+                    assertFalse(commodityBatch.isRemainder());
                     found = true;
                 }
             }
