@@ -282,9 +282,12 @@ public class CommodityDAO implements ICommodityDAO {
             ResultSet minQuantity = statement.executeQuery("SELECT MIN(quantity) FROM Ingredient" +
                     " WHERE c_ID = " + commodityBatch.getCommodityID());
 
-            if (commodityBatch.getStock() < minQuantity.getInt(1)){
-                commodityBatch.setRemainder(true);
+            if(minQuantity.next()){
+                if (commodityBatch.getStock() < minQuantity.getInt(1)){
+                    commodityBatch.setRemainder(true);
+                }
             }
+
 
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
