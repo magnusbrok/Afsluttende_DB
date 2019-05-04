@@ -233,7 +233,7 @@ public class CommodityDAO implements ICommodityDAO {
     public void updateCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
 
-            //check remainder?
+            checkRemainder(commodityBatch);
 
             PreparedStatement ps = con.prepareStatement("UPDATE cBatch SET stock = ?, remainder = ? WHERE cb_ID = ?");
 

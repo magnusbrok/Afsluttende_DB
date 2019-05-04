@@ -122,12 +122,34 @@ public class CommodityDAOTest {
             //Delete commodityBatch
             commodityDAO.deleteCBatch(test.getCommodityBatchID());
 
-           // assertEquals(null, commodityDAO.getCBatch(test.getStock()).getStock());
+            assertEquals(0, commodityDAO.getCBatch(test.getStock()).getStock());
                 /** - Hvad er det den skal gøre?  **/
 
         } catch (IUserDAO.DALException e) {
             e.printStackTrace();
             fail();
         }
+    }
+
+    @Test
+    public void getExtractListTest(){
+        List<ICommodityBatch> list = commodityDAO.getExtractList(1); //metode parameter skal ændres
+        boolean found = false;
+        for (ICommodityBatch commodityBatch: list) {
+            if (commodityBatch.getCommodityBatchID() == 24) {
+                assertEquals(2, commodityBatch.getCommodityID());
+                assertEquals("TEST_Manufacturer A", commodityBatch.getManufacturer());
+                assertEquals(0, commodityBatch.isRemainder());
+                found = true;
+            }
+        }
+        if (!found) {
+            fail();
+        }
+    }
+
+    @Test
+    public void checkReorderTest(){
+
     }
 }
