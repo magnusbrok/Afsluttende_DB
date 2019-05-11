@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductDAOTest {
 
-    IProductDAO productDAO = new ProductDAO();
+    private IProductDAO productDAO = new ProductDAO();
 
     @Test
     public void productTest() {

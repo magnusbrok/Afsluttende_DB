@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CommodityDAOTest {
 
-    ICommodityDAO commodityDAO = new CommodityDAO();
+    private ICommodityDAO commodityDAO = new CommodityDAO();
 
     @Test
     public void commodityTest() {

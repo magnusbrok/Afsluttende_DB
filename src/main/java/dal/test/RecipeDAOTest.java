@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeDAOTest {
-    IRecipeDAO recipeDAO = new RecipeDAO();
+    private IRecipeDAO recipeDAO = new RecipeDAO();
 
     @Test
     public void RecipeTest() {
@@ -40,7 +40,6 @@ public class RecipeDAOTest {
 
             //Test of update Recipe
             testRecipe.setTitle("TestUnit");
-            testRecipe.setProductID(1); //ProductID not changed (foreign key)
             testRecipe.setQuantity(1000);
             recipeDAO.updateRecipe(testRecipe);
 

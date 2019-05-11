@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDAOTest {
-        IUserDAO userDAO = new UserDAO();
+    private IUserDAO userDAO = new UserDAO();
 
 
     @Test
