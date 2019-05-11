@@ -1,8 +1,5 @@
 package dal.dto;
-
-import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.IIngredient;
-import dal.dto.interfaces.IRecipe;
 
 public class Ingredient implements IIngredient {
 
@@ -10,7 +7,6 @@ public class Ingredient implements IIngredient {
     private int commodityID;
     private float quantity;
     private float deviation;
-
 
     @Override
     public int getRecipeID() {
@@ -20,7 +16,6 @@ public class Ingredient implements IIngredient {
     @Override
     public void setRecipeID(int recipeID) {
         this.recipeID = recipeID;
-
     }
 
     @Override
@@ -31,7 +26,6 @@ public class Ingredient implements IIngredient {
     @Override
     public void setCommodityID(int commodityID) {
         this.commodityID = commodityID;
-
     }
 
     @Override

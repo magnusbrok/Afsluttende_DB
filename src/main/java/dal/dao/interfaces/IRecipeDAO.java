@@ -1,8 +1,6 @@
 package dal.dao.interfaces;
 
-import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.IIngredient;
-import dal.dto.interfaces.IProduct;
 import dal.dto.interfaces.IRecipe;
 
 import java.util.List;
@@ -11,6 +9,7 @@ public interface IRecipeDAO {
 
     //Create
     void createRecipe(IRecipe recipe, int productID)  throws IUserDAO.DALException;
+
     void createIngredient (IIngredient ingredient)  throws IUserDAO.DALException;
 
     //Read
@@ -25,7 +24,5 @@ public interface IRecipeDAO {
     void deleteIngredient (int recipeID, int commodityID) throws IUserDAO.DALException;
 
     void deleteRecipe (int recipeID) throws IUserDAO.DALException;
-        // er ved at undersøge database-design til log-historik - Siff
 
-    void logRecipe (int recipeID);
 }

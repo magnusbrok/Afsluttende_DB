@@ -10,19 +10,6 @@ import java.util.List;
 
 public class UserDAO implements IUserDAO {
 
-//    String dbAdress = "jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/";
-//    String dbUser = "s185037";
-//    String dbPassWord = "7KZWv1fdgUsV6uSlvhLVb";
-//    private Connection createConnection() throws IUserDAO.DALException{
-//        try {
-//
-//            return DriverManager.getConnection(dbAdress + dbUser + "?"
-//                    + "user=" + dbUser + "&password="+dbPassWord);
-//        } catch (SQLException e)    {
-//            throw new IUserDAO.DALException(e.getMessage());
-//        }
-//    }
-
     private Connection createConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s173998?"
                 + "user=s173998&password=qRibfryD9hC7hNICVopba");
@@ -52,12 +39,6 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    /**
-     *
-     * H
-     * @return
-     * @throws DALException
-     */
     @Override
     public List<IUser> getUserList() throws DALException {
         try (Connection con = createConnection()) {
@@ -124,32 +105,14 @@ public class UserDAO implements IUserDAO {
     public void deleteUser(int userID) throws DALException {
         try (Connection con = createConnection()) {
 
-            Statement stmt = con.createStatement();
-
-            stmt.executeUpdate("DELETE FROM uRoles WHERE u_ID =" + userID + ";");
-            stmt.executeUpdate("DELETE FROM User WHERE u_ID = " + userID + ";");
-
-        } catch (SQLException e) {
-            throw new DALException(e.getMessage());
-        }
-    }
-// so far this method isn't used anymore sine DAO doesn't handle the creatation of roles.
-    private void insertRole(IUser user, String role) throws DALException {
-        try (Connection con = createConnection()){
-
-
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO Roles (name) " +
-                    "VALUES (?);");
-            stmt.setString(1,role);
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM uRoles WHERE u_ID = ?;");
+            stmt.setInt(1,userID);
             stmt.executeUpdate();
 
-            ResultSet rs = stmt.executeQuery("SELECT ro_ID FROM Roles WHERE name = '" + role + "';");
-            rs.next();
-            stmt = con.prepareStatement("INSERT INTO uRoles (u_ID, ro_ID) " +
-                    "VALUES (?, ?);");
-            stmt.setInt(1,user.getUserID());
-            stmt.setInt(2,rs.getInt("ro_ID"));
+            stmt = con.prepareStatement("DELETE FROM User WHERE u_ID = ?;");
+            stmt.setInt(1,userID);
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }

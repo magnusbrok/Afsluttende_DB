@@ -2,7 +2,8 @@ package dal.dao;
 
 import dal.dao.interfaces.IRecipeDAO;
 import dal.dao.interfaces.IUserDAO;
-import dal.dto.*;
+import dal.dto.Ingredient;
+import dal.dto.Recipe;
 import dal.dto.interfaces.*;
 
 
@@ -17,7 +18,7 @@ public class RecipeDAO implements IRecipeDAO {
                 + "user=s173998&password=qRibfryD9hC7hNICVopba");
     }
 
-    //CREATE
+
     @Override
     public void createRecipe(IRecipe recipe, int productID) throws IUserDAO.DALException {
         try (Connection con = createConnection();){
@@ -50,8 +51,6 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-
-    //READ
     @Override
     public IRecipe getRecipe(int recipeID) throws IUserDAO.DALException {
         try (Connection con = createConnection()) {
@@ -93,7 +92,6 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-    //UPDATE
     @Override
     public void updateRecipe(IRecipe recipe) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
@@ -109,7 +107,6 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-    //DELETE
     @Override
     public void deleteIngredient(int recipeID, int commodityID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
@@ -123,7 +120,6 @@ public class RecipeDAO implements IRecipeDAO {
         }
     }
 
-
     @Override
     public void deleteRecipe(int recipeID) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
@@ -134,11 +130,5 @@ public class RecipeDAO implements IRecipeDAO {
         } catch (SQLException e) {
             throw new IUserDAO.DALException(e.getMessage());
         }
-    }
-
-    //LOG
-    @Override
-    public void logRecipe(int recipeID) {
-
     }
 }

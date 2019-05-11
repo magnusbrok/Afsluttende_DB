@@ -1,7 +1,5 @@
 package dal.dto.interfaces;
 
-import java.util.List;
-
 public interface ICommodity {
 
     int getCommodityID();

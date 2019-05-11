@@ -1,13 +1,11 @@
 package dal.dao;
 
-import com.mysql.cj.protocol.Resultset;
 import dal.dao.interfaces.ICommodityDAO;
 import dal.dao.interfaces.IUserDAO;
 import dal.dto.Commodity;
 import dal.dto.CommodityBatch;
 import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.ICommodityBatch;
-import dal.dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,7 +38,6 @@ public class CommodityDAO implements ICommodityDAO {
     public void createCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException {
         try (Connection con = createConnection()){
 
-            //ICommodityBatch comm = new CommodityBatch();
             PreparedStatement create = con.prepareStatement("INSERT INTO cBatch VALUES (?, ?, ?, ?, ?) ");
 
             create.setInt(1, commodityBatch.getCommodityBatchID());
@@ -55,7 +52,6 @@ public class CommodityDAO implements ICommodityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

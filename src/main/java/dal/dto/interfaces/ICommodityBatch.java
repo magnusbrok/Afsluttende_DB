@@ -2,9 +2,6 @@ package dal.dto.interfaces;
 
 public interface ICommodityBatch {
 
-    //døjer med nogle overvejelser omkring relevante attributter... - siff
-
-
 
     int getCommodityBatchID();
     void setCommodityBatchID(int commodityBatchID);

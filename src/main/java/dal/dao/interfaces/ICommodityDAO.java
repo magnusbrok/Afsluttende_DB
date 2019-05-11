@@ -2,8 +2,6 @@ package dal.dao.interfaces;
 
 import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.ICommodityBatch;
-import dal.dto.interfaces.IProductBatch;
-
 import java.util.List;
 
 public interface ICommodityDAO {
@@ -28,13 +26,13 @@ public interface ICommodityDAO {
 
     List<ICommodityBatch> getRemainderList() throws IUserDAO.DALException;
 
-    List<ICommodityBatch> getExtractList(int productBatchID) throws IUserDAO.DALException; // kan være extract metoder skal ligge et andet sted? - siff
+    List<ICommodityBatch> getExtractList(int productBatchID) throws IUserDAO.DALException;
 
     //Update
     void updateCommodity(ICommodity commodity) throws IUserDAO.DALException;
     void updateCBatch(ICommodityBatch commodityBatch) throws IUserDAO.DALException;
 
-    //Delete skal ikke bruges, men det er nice de er der.
+    //Delete
     void deleteCommodity(int commodityID) throws IUserDAO.DALException;
     void deleteCBatch(int commodityBatchID) throws IUserDAO.DALException;
     void deleteExtract(int pb_ID, int cb_ID) throws IUserDAO.DALException;

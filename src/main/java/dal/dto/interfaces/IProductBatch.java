@@ -1,7 +1,5 @@
 package dal.dto.interfaces;
 
-import java.util.List;
-
 public interface IProductBatch {
 
     int getProductBatchID();
@@ -19,9 +17,5 @@ public interface IProductBatch {
     int getStatusID();
 
     void setStatusID(int statusID);
-
-    List<ICommodityBatch> getExtractList();
-
-    void setExtractList(List<ICommodityBatch> extractList);
 
 }

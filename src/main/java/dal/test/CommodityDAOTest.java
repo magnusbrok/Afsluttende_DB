@@ -12,8 +12,6 @@ import dal.dto.interfaces.ICommodity;
 import dal.dto.interfaces.ICommodityBatch;
 import dal.dto.interfaces.IIngredient;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,9 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CommodityDAOTest {
 
-
     ICommodityDAO commodityDAO = new CommodityDAO();
-
 
     @Test
     public void commodityTest() {
@@ -79,7 +75,7 @@ public class CommodityDAOTest {
 
 
     @Test
-    public void commodityBatchTest() throws IUserDAO.DALException {
+    public void commodityBatchTest() {
         ICommodityBatch test = new CommodityBatch();
         test.setCommodityBatchID(212);
         test.setCommodityID(1);
@@ -104,7 +100,6 @@ public class CommodityDAOTest {
             assertEquals(test.getStock(),recived.getStock());
             assertTrue(recived.isRemainder());
 
-            //Get commodityBatchList !! skal rettes til at checke om reminders (dvs. testbatch) ikke forekommer
             List<ICommodityBatch> cb = commodityDAO.getCBatchList();
             for (ICommodityBatch commodityBatch: cb) {
                 if (commodityBatch.getCommodityBatchID() == test.getCommodityBatchID()) {

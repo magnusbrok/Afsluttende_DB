@@ -8,8 +8,6 @@ import dal.dto.interfaces.IProduct;
 import dal.dao.interfaces.IProductDAO;
 import dal.dto.interfaces.IProductBatch;
 import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

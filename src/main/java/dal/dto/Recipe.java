@@ -1,7 +1,6 @@
 package dal.dto;
 
 import dal.dto.interfaces.IIngredient;
-import dal.dto.interfaces.IProduct;
 import dal.dto.interfaces.IRecipe;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class Recipe implements IRecipe {
 
     @Override
     public void setRecipeID(int recipeID) {this.recipeID = recipeID;
-
     }
 
     @Override
@@ -58,17 +56,13 @@ public class Recipe implements IRecipe {
 
     @Override
     public void setIngredientList(List<IIngredient> ingredientList) {this.ingredientList = ingredientList;
-
     }
-
 
     @Override
     public void addIngredient(IIngredient ingredient) {this.ingredientList.add(ingredient);
-
     }
 
     @Override
     public void removeIngredient(IIngredient ingredient) {this.ingredientList.remove(ingredient);
-
     }
 }

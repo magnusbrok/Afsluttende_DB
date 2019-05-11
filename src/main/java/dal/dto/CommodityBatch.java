@@ -1,20 +1,14 @@
 package dal.dto;
 
-
 import dal.dto.interfaces.ICommodityBatch;
 
 public class CommodityBatch implements ICommodityBatch {
-
-    //TODO implement extractlist?
 
     private int commodityBatchID;
     private int commodityID;
     private String manufacturer;
     private float stock;
     private boolean remainder;
-
-   // private List<IProductBatch> extractList; //?
-
 
     @Override
     public int getCommodityBatchID() {

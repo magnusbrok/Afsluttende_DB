@@ -1,7 +1,6 @@
 package dal.dto;
 
 import dal.dto.interfaces.IUser;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ public class User implements IUser {
 
     private int userID;
     private String userName;
-
 
     private List<Integer> roleIDs = new ArrayList<>();
     private List<String> roles = new ArrayList<>();
