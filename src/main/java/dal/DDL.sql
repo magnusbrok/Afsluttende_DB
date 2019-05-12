@@ -1,11 +1,11 @@
 CREATE TABLE Product (
 	p_ID INT(6) PRIMARY KEY,
-    name TEXT
+    name TEXT UNIQUE
 );
 
 CREATE TABLE Commodity (
 	c_ID INT(6) PRIMARY KEY,
-    name TEXT,
+    name TEXT UNIQUE,
     active BOOLEAN,
     reorder BOOLEAN
 );
@@ -39,7 +39,7 @@ CREATE TABLE Ingredient (
 
 CREATE TABLE Status (
 	s_ID INT(6) PRIMARY KEY,
-    name TEXT
+    name TEXT UNIQUE
 );
 
 CREATE TABLE pBatch (
